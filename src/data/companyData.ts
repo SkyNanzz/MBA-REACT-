@@ -1,11 +1,10 @@
-import type { Product, Testimonial, Statistic, Article, GalleryItem, NavLink, TimelineItem, CompanyValue, Advantage, TeamMember, Certification, SocialLink } from '../types';
+import type { Product, Testimonial, Statistic, GalleryItem, NavLink, TimelineItem, CompanyValue, Advantage, TeamMember, SocialLink } from '../types';
 
 export const navLinks: NavLink[] = [
   { label: 'Beranda', path: '/' },
   { label: 'Tentang Kami', path: '/tentang' },
   { label: 'Produk', path: '/produk' },
   { label: 'Galeri', path: '/galeri' },
-  { label: 'Artikel', path: '/artikel' },
   { label: 'Kontak', path: '/kontak' },
 ];
 
@@ -198,74 +197,6 @@ export const statistics: Statistic[] = [
   },
 ];
 
-export const articles: Article[] = [
-  {
-    id: 'a1',
-    title: 'Mengenal Lebih Dekat Minyak Nilam: Si Hitam yang Wangi dari Buton',
-    slug: 'mengenal-minyak-nilam',
-    image: 'https://images.unsplash.com/photo-1588409985743-68ad0f404427?w=600&q=80',
-    date: '15 Januari 2026',
-    summary: 'Minyak nilam adalah salah satu komoditas ekspor unggulan Indonesia. Pelajari karakteristik, proses produksi, dan manfaatnya dari perspektif petani Buton.',
-    category: 'Produk',
-    author: 'Tim MBA',
-    content: 'Minyak nilam (Patchouli Oil) merupakan salah satu essential oil paling berharga di dunia. Dikenal sebagai "si hitam yang wangi", minyak nilam memiliki aroma earthy yang khas dan tahan lama...',
-  },
-  {
-    id: 'a2',
-    title: 'Proses Distilasi Uap: Kunci Kualitas Essential Oil Premium',
-    slug: 'proses-distilasi-uap',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
-    date: '28 Desember 2025',
-    summary: 'Teknologi distilasi uap modern yang kami terapkan memastikan setiap tetes essential oil yang diproduksi memiliki kualitas terbaik dan memenuhi standar internasional.',
-    category: 'Teknologi',
-    author: 'Tim Produksi',
-    content: 'Distilasi uap adalah metode ekstraksi esensial oil yang paling umum digunakan karena mampu menghasilkan minyak dengan kualitas terbaik...',
-  },
-  {
-    id: 'a3',
-    title: 'MBA Mandiri Buton Atsiri Perluas Jaringan Ekspor ke Eropa',
-    slug: 'ekspor-eropa',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80',
-    date: '10 Desember 2025',
-    summary: 'Setelah memenuhi standar ketat Uni Eropa, kami resmi memperluas jaringan distribusi ke beberapa negara Eropa termasuk Jerman dan Perancis.',
-    category: 'Perusahaan',
-    author: 'Tim MBA',
-    content: 'Pencapaian terbaru dalam perjalanan MBA Mandiri Buton Atsiri adalah ekspansi pasar ke Eropa...',
-  },
-  {
-    id: 'a4',
-    title: 'Tips Memilih Essential Oil Berkualitas untuk Industri Kosmetik',
-    slug: 'tips-memilih-essential-oil',
-    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80',
-    date: '22 November 2025',
-    summary: 'Panduan lengkap memilih essential oil berkualitas untuk kebutuhan industri kosmetik Anda. Mulai dari kadar senyawa aktif hingga sertifikasi yang diperlukan.',
-    category: 'Industri',
-    author: 'Tim R&D',
-    content: 'Dalam industri kosmetik, pemilihan bahan baku essential oil yang tepat sangat krusial...',
-  },
-  {
-    id: 'a5',
-    title: 'Keunggulan Minyak Kayu Putih Buton Dibanding Daerah Lain',
-    slug: 'keunggulan-minyak-kayu-putih-buton',
-    image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80',
-    date: '5 November 2025',
-    summary: 'Faktor geografis dan iklim mikro Buton memberikan karakteristik unik pada minyak kayu putih yang dihasilkan, dengan kadar sineol yang lebih tinggi.',
-    category: 'Produk',
-    author: 'Tim R&D',
-    content: 'Buton memiliki kondisi tanah dan iklim yang ideal untuk pertumbuhan pohon kayu putih...',
-  },
-  {
-    id: 'a6',
-    title: 'Peran Essential Oil dalam Industri Farmasi Modern',
-    slug: 'essential-oil-farmasi',
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&q=80',
-    date: '18 Oktober 2025',
-    summary: 'Essential oil semakin banyak digunakan dalam formulasi obat-obatan modern. Simak bagaimana minyak atsiri berkontribusi dalam dunia farmasi.',
-    category: 'Industri',
-    author: 'Tim MBA',
-    content: 'Penggunaan essential oil dalam industri farmasi terus berkembang seiring dengan penelitian ilmiah...',
-  },
-];
 
 export const galleryItems: GalleryItem[] = [
   { id: 'g1', src: 'https://images.unsplash.com/photo-1588409985743-68ad0f404427?w=800&q=80', alt: 'Kebun nilam Buton', category: 'perkebunan' },
@@ -412,25 +343,4 @@ export const socialLinks: SocialLink[] = [
   { name: 'Instagram', url: 'https://instagram.com/mbamandiri', icon: 'FaInstagram' },
   { name: 'Facebook', url: 'https://facebook.com/mbamandiri', icon: 'FaFacebook' },
   { name: 'LinkedIn', url: 'https://linkedin.com/company/mbamandiri', icon: 'FaLinkedin' },
-];
-
-export const certifications: Certification[] = [
-  {
-    id: 'c1',
-    name: 'ISO 9001:2015',
-    image: 'https://images.unsplash.com/photo-1589828292016-1d2282e8e8a7?w=200&q=80',
-    description: 'Sistem Manajemen Mutu',
-  },
-  {
-    id: 'c2',
-    name: 'Organik EU',
-    image: 'https://images.unsplash.com/photo-1589828292016-1d2282e8e8a7?w=200&q=80',
-    description: 'Sertifikasi Organik Uni Eropa',
-  },
-  {
-    id: 'c3',
-    name: 'BPOM',
-    image: 'https://images.unsplash.com/photo-1589828292016-1d2282e8e8a7?w=200&q=80',
-    description: 'Izin Edar BPOM RI',
-  },
 ];

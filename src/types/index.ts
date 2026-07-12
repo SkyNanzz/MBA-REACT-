@@ -11,18 +11,6 @@ export interface Product {
   extractionMethod: string;
 }
 
-export interface Article {
-  id: string;
-  title: string;
-  slug: string;
-  image: string;
-  date: string;
-  summary: string;
-  content?: string;
-  category: string;
-  author: string;
-}
-
 export interface Testimonial {
   id: string;
   name: string;
@@ -70,15 +58,6 @@ export interface Advantage {
   title: string;
   description: string;
 }
-
-export interface ContactInfo {
-  address: string;
-  email: string;
-  phone: string;
-  whatsapp: string;
-  mapEmbedUrl: string;
-}
-
 export interface SocialLink {
   name: string;
   url: string;
@@ -98,10 +77,4 @@ export interface Certification {
   name: string;
   image: string;
   description: string;
-}
-
-export interface RouteConfig {
-  path: string;
-  label: string;
-  component: React.LazyExoticComponent<React.ComponentType<any>>;
 }

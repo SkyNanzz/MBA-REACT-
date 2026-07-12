@@ -11,9 +11,7 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Products = lazy(() => import('./pages/Products'));
 const Gallery = lazy(() => import('./pages/Gallery'));
-const Articles = lazy(() => import('./pages/Articles'));
 const Contact = lazy(() => import('./pages/Contact'));
-const ArticleDetail = lazy(() => import('./pages/ArticleDetail'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const ScrollToTopOnNavigate: React.FC = () => {
@@ -41,8 +39,6 @@ const AppContent: React.FC = () => {
               <Route path="/tentang" element={<About />} />
               <Route path="/produk" element={<Products />} />
               <Route path="/galeri" element={<Gallery />} />
-              <Route path="/artikel" element={<Articles />} />
-              <Route path="/artikel/:slug" element={<ArticleDetail />} />
               <Route path="/kontak" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
