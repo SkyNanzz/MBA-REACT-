@@ -85,6 +85,9 @@ const Products: React.FC = () => {
                 <div className="product-detail-grid">
                   <div className="product-detail-image">
                     <div className="product-image-wrapper">
+                      {product.comingSoon && (
+                        <span className="product-image-badge">Coming Soon</span>
+                      )}
                       {product.image ? (
                         <img src={product.image} alt={product.name} loading="lazy" />
                       ) : (
@@ -94,8 +97,12 @@ const Products: React.FC = () => {
                             <path d="M12 8v8" />
                             <path d="M8 12h8" />
                           </svg>
-                          <span className="product-image-placeholder-text">Gambar Belum Tersedia</span>
-                          <span className="product-image-placeholder-hint">Upload gambar ke folder assets untuk menampilkan produk</span>
+                          <span className="product-image-placeholder-text">Segera Hadir</span>
+                          {product.comingSoon ? (
+                            <span className="product-image-placeholder-hint">Produk ini akan segera tersedia</span>
+                          ) : (
+                            <span className="product-image-placeholder-hint">Upload gambar ke folder assets untuk menampilkan produk</span>
+                          )}
                         </div>
                       )}
                     </div>
@@ -140,9 +147,16 @@ const Products: React.FC = () => {
                       </div>
                     </div>
 
-                    <Button variant="primary" href="/kontak">
-                      Pesan Sekarang <FaArrowRight />
-                    </Button>
+                    {product.comingSoon ? (
+                      <div className="coming-soon-notice">
+                        <span className="coming-soon-badge-large">Coming Soon</span>
+                        <p className="coming-soon-text">Produk ini akan segera tersedia. Pantau terus website kami untuk informasi terbaru.</p>
+                      </div>
+                    ) : (
+                      <Button variant="primary" href="/kontak">
+                        Pesan Sekarang <FaArrowRight />
+                      </Button>
+                    )}
                   </div>
                 </div>
               </article>
@@ -206,6 +220,7 @@ const Products: React.FC = () => {
           border-radius: var(--radius-xl);
           overflow: hidden;
           box-shadow: var(--shadow-lg);
+          position: relative;
         }
 
         .product-image-wrapper img {
@@ -256,6 +271,23 @@ const Products: React.FC = () => {
           text-align: center;
           max-width: 200px;
           line-height: 1.4;
+        }
+
+        .product-image-badge {
+          position: absolute;
+          top: var(--space-4);
+          right: var(--space-4);
+          z-index: 2;
+          padding: var(--space-1) var(--space-3);
+          background: linear-gradient(135deg, #f59e0b, #d97706);
+          color: white;
+          font-size: var(--font-size-xs);
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          border-radius: var(--radius-full);
+          box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+          animation: badge-pulse 2s infinite;
         }
 
         .product-detail-title {
@@ -354,6 +386,38 @@ const Products: React.FC = () => {
         .spec-value {
           color: var(--color-primary);
           font-weight: 500;
+        }
+
+        .coming-soon-notice {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: var(--space-3);
+          padding: var(--space-5);
+          background: linear-gradient(135deg, #fffbeb, #fef3c7);
+          border: 1px solid #fde68a;
+          border-radius: var(--radius-lg);
+        }
+
+        .coming-soon-badge-large {
+          display: inline-flex;
+          align-items: center;
+          gap: var(--space-2);
+          padding: var(--space-1) var(--space-4);
+          background: linear-gradient(135deg, #f59e0b, #d97706);
+          color: white;
+          font-size: var(--font-size-sm);
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          border-radius: var(--radius-full);
+        }
+
+        .coming-soon-text {
+          font-size: var(--font-size-sm);
+          color: #92400e;
+          margin: 0;
+          line-height: var(--line-height-relaxed);
         }
 
         @media (min-width: 768px) {

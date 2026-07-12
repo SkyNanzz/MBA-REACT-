@@ -290,7 +290,7 @@ const FeaturedProductsSection: React.FC = () => {
         <div ref={ref} className="grid grid-3 stagger-children">
           {featuredProducts.map((product, index) => (
             <Card key={product.id} delay={index * 100}>
-              <CardImage src={product.image} alt={product.name} />
+              <CardImage src={product.image} alt={product.name} badge={product.comingSoon ? 'Coming Soon' : undefined} />
               <CardBody>
                 <h3 className="card-title">{product.name}</h3>
                 <p className="card-text">{product.description.slice(0, 120)}...</p>

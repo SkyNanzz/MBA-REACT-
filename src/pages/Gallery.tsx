@@ -73,20 +73,33 @@ const Gallery: React.FC = () => {
                   aria-label={`Lihat gambar: ${item.alt}`}
                 >
                   <div className="gallery-item-image-wrapper">
-                    <img
-                      src={item.src}
-                      alt={item.alt}
-                      className="gallery-item-image"
-                      loading="lazy"
-                    />
-                    <div className="gallery-item-overlay" aria-hidden="true">
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                        <circle cx="11" cy="11" r="8" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        <line x1="11" y1="8" x2="11" y2="14" />
-                        <line x1="8" y1="11" x2="14" y2="11" />
-                      </svg>
-                    </div>
+                    {item.src ? (
+                      <>
+                        <img
+                          src={item.src}
+                          alt={item.alt}
+                          className="gallery-item-image"
+                          loading="lazy"
+                        />
+                        <div className="gallery-item-overlay" aria-hidden="true">
+                          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            <line x1="11" y1="8" x2="11" y2="14" />
+                            <line x1="8" y1="11" x2="14" y2="11" />
+                          </svg>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="gallery-item-placeholder">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                        <span className="gallery-placeholder-text">Gambar Belum Tersedia</span>
+                      </div>
+                    )}
                   </div>
                   <div className="gallery-item-label">
                     <span className="gallery-item-category">
@@ -209,6 +222,30 @@ const Gallery: React.FC = () => {
           color: var(--color-primary);
           text-transform: uppercase;
           letter-spacing: 1px;
+        }
+
+        .gallery-item-placeholder {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          color: #15803d;
+        }
+
+        .gallery-item-placeholder svg {
+          opacity: 0.5;
+        }
+
+        .gallery-placeholder-text {
+          font-size: var(--font-size-xs);
+          font-weight: 600;
+          color: #15803d;
+          opacity: 0.7;
+          letter-spacing: 0.5px;
         }
 
         .gallery-empty {

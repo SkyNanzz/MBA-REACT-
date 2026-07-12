@@ -9,6 +9,7 @@ export interface Product {
   category: string;
   origin: string;
   extractionMethod: string;
+  comingSoon?: boolean;
 }
 
 

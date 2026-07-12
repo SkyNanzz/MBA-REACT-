@@ -61,16 +61,18 @@ interface CardImageProps {
   alt: string;
   aspectRatio?: string;
   className?: string;
+  badge?: string;
 }
 
-export const CardImage: React.FC<CardImageProps> = ({ src, alt, aspectRatio = '16/10', className = '' }) => {
+export const CardImage: React.FC<CardImageProps> = ({ src, alt, aspectRatio = '16/10', className = '', badge }) => {
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
   const isEmpty = !src || src.trim() === '';
 
   if (isEmpty) {
     return (
-      <div className={`card-img-wrapper ${className}`}>
+      <div className={`card-img-wrapper ${className}`} style={{ position: 'relative' }}>
+        {badge && <span className="card-badge">{badge}</span>}
         <PlaceholderSVG aspectRatio={aspectRatio} />
       </div>
     );
@@ -78,6 +80,7 @@ export const CardImage: React.FC<CardImageProps> = ({ src, alt, aspectRatio = '1
 
   return (
     <div className={`card-img-wrapper ${className}`} style={{ position: 'relative' }}>
+      {badge && <span className="card-badge">{badge}</span>}
       {!loaded && !error && (
         <div
           style={{

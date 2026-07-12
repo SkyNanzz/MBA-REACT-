@@ -71,11 +71,8 @@ const Footer: React.FC = () => {
             <div className="footer-col">
               <h4 className="footer-heading">Produk</h4>
               <ul className="footer-links">
-                <li><Link to="/produk" className="footer-link">Minyak Nilam</Link></li>
-                <li><Link to="/produk" className="footer-link">Minyak Kayu Putih</Link></li>
-                <li><Link to="/produk" className="footer-link">Minyak Cengkeh</Link></li>
-                <li><Link to="/produk" className="footer-link">Minyak Pala</Link></li>
-                <li><Link to="/produk" className="footer-link">Minyak Sereh Wangi</Link></li>
+                <li><Link to="/produk#minyak-nilam" className="footer-link">Minyak Nilam</Link></li>
+                <li><Link to="/produk" className="footer-link footer-link-soon">Produk Lainnya <span className="footer-coming-soon">Segera</span></Link></li>
               </ul>
             </div>
 
@@ -240,6 +237,24 @@ const Footer: React.FC = () => {
         .footer-link:hover {
           color: var(--color-gold-light);
           transform: translateX(4px);
+        }
+
+        .footer-link-soon {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2);
+        }
+
+        .footer-coming-soon {
+          font-size: 0.6rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 1px 6px;
+          background: rgba(245, 158, 11, 0.2);
+          color: #fbbf24;
+          border-radius: var(--radius-full);
+          line-height: 1.4;
         }
 
         .footer-contact {

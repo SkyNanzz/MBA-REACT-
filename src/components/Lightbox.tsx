@@ -86,17 +86,49 @@ const Lightbox: React.FC<LightboxProps> = ({ images, currentIndex, onClose, onNa
         </button>
       )}
 
-      <img
-        src={images[currentIndex].src}
-        alt={images[currentIndex].alt}
-        className="lightbox-image"
-      />
+      {images[currentIndex].src ? (
+        <img
+          src={images[currentIndex].src}
+          alt={images[currentIndex].alt}
+          className="lightbox-image"
+        />
+      ) : (
+        <div className="lightbox-placeholder">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+          <span className="lightbox-placeholder-text">Gambar Belum Tersedia</span>
+        </div>
+      )}
 
       <div className="lightbox-counter">
         {currentIndex + 1} / {images.length}
       </div>
 
       <style>{`
+        .lightbox-placeholder {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          max-width: 90vw;
+          max-height: 85vh;
+          aspect-ratio: 16/9;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: var(--radius-md);
+          border: 2px dashed rgba(255, 255, 255, 0.15);
+        }
+
+        .lightbox-placeholder-text {
+          font-size: var(--font-size-sm);
+          color: rgba(255, 255, 255, 0.4);
+          font-weight: 500;
+          letter-spacing: 1px;
+        }
+
         .lightbox-nav {
           position: absolute;
           top: 50%;
