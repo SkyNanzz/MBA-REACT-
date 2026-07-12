@@ -1,4 +1,4 @@
-import type { Product, Testimonial, Statistic, GalleryItem, NavLink, TimelineItem, CompanyValue, Advantage, TeamMember, SocialLink } from '../types';
+import type { Product, Statistic, GalleryItem, NavLink, TimelineItem, CompanyValue, Advantage, TeamMember, SocialLink } from '../types';
 
 export const navLinks: NavLink[] = [
   { label: 'Beranda', path: '/' },
@@ -131,44 +131,6 @@ export const products: Product[] = [
   },
 ];
 
-export const testimonials: Testimonial[] = [
-  {
-    id: 't1',
-    name: 'Jean-Pierre Laurent',
-    position: 'Purchasing Manager',
-    company: 'L\'Occitane Fragrance SA',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80',
-    quote: 'Kualitas minyak nilam dari MBA Mandiri Buton Atsiri konsisten memenuhi standar kami. Kadar patchouli alcohol yang tinggi membuatnya menjadi pilihan utama bahan baku parfum premium kami.',
-    rating: 5,
-  },
-  {
-    id: 't2',
-    name: 'Maria Schmidt',
-    position: 'CEO',
-    company: 'Essenzia Naturals GmbH',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80',
-    quote: 'Kerjasama dengan MBA Mandiri Buton Atsiri telah menjadi kemitraan yang sangat berharga. Ketepatan pengiriman dan konsistensi kualitas produk mereka luar biasa.',
-    rating: 5,
-  },
-  {
-    id: 't3',
-    name: 'Takeshi Yamamoto',
-    position: 'Director of Procurement',
-    company: 'Aroma Japan Co., Ltd.',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80',
-    quote: 'Sejak bermitra dengan MBA Mandiri Buton Atsiri, rantai pasokan essential oil kami menjadi lebih stabil. Produk mereka memenuhi standar ekspor Jepang yang sangat ketat.',
-    rating: 5,
-  },
-  {
-    id: 't4',
-    name: 'Sarah Thompson',
-    position: 'Product Development',
-    company: 'Natural Wellness Inc.',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80',
-    quote: 'Minyak kayu putih dan cengkeh dari MBA sangat autentik. Aroma dan kemurniannya jauh melampaui produk serupa yang pernah kami coba sebelumnya.',
-    rating: 4,
-  },
-];
 
 export const statistics: Statistic[] = [
   {

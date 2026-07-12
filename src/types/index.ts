@@ -11,15 +11,6 @@ export interface Product {
   extractionMethod: string;
 }
 
-export interface Testimonial {
-  id: string;
-  name: string;
-  position: string;
-  company: string;
-  avatar: string;
-  quote: string;
-  rating: number;
-}
 
 export interface Statistic {
   id: string;

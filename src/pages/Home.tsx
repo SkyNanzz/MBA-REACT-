@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaLeaf, FaIndustry, FaGlobeAsia, FaUsers, FaCertificate, FaTruck, FaStar, FaQuoteLeft, FaArrowRight } from 'react-icons/fa';
+import { FaLeaf, FaIndustry, FaGlobeAsia, FaUsers, FaCertificate, FaTruck, FaStar, FaArrowRight } from 'react-icons/fa';
 import Button from '../components/Button';
 import SectionTitle from '../components/SectionTitle';
 import Card, { CardImage, CardBody } from '../components/Card';
-import { products, testimonials, statistics, advantages } from '../data/companyData';
+import { products, statistics, advantages } from '../data/companyData';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 const HeroSection: React.FC = () => {
@@ -426,142 +426,6 @@ const StatsSection: React.FC = () => {
   );
 };
 
-const TestimonialsSection: React.FC = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
-
-  return (
-    <section className="section section-alt" id="testimoni">
-      <div className="container">
-        <SectionTitle
-          subtitle="Testimoni"
-          title="Apa Kata Klien Kami"
-          description="Kepercayaan mitra global kami adalah bukti nyata komitmen kami terhadap kualitas dan pelayanan terbaik."
-        />
-        <div ref={ref} className="testimonials-grid stagger-children">
-          {testimonials.map((testimonial, index) => (
-            <div key={testimonial.id} className={`testimonial-card fade-in ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: `${index * 100}ms` }}>
-              <FaQuoteLeft className="testimonial-quote-icon" />
-              <p className="testimonial-quote">{testimonial.quote}</p>
-              <div className="testimonial-rating">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <FaStar key={i} className="star-filled" />
-                ))}
-                {Array.from({ length: 5 - testimonial.rating }).map((_, i) => (
-                  <FaStar key={`empty-${i}`} className="star-empty" />
-                ))}
-              </div>
-              <div className="testimonial-author">
-                <img
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
-                  className="testimonial-avatar"
-                  loading="lazy"
-                />
-                <div>
-                  <div className="testimonial-name">{testimonial.name}</div>
-                  <div className="testimonial-position">{testimonial.position}, {testimonial.company}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <style>{`
-        .testimonials-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: var(--space-6);
-        }
-
-        .testimonial-card {
-          background: var(--color-white);
-          padding: var(--space-8);
-          border-radius: var(--radius-xl);
-          box-shadow: var(--shadow-sm);
-          border: 1px solid var(--color-border);
-          position: relative;
-          transition: all var(--transition-base);
-        }
-
-        .testimonial-card:hover {
-          box-shadow: var(--shadow-md);
-          transform: translateY(-2px);
-        }
-
-        .testimonial-quote-icon {
-          font-size: var(--font-size-2xl);
-          color: var(--color-gold);
-          opacity: 0.3;
-          margin-bottom: var(--space-4);
-        }
-
-        .testimonial-quote {
-          font-size: var(--font-size-base);
-          line-height: var(--line-height-relaxed);
-          color: var(--color-text);
-          font-style: italic;
-          margin-bottom: var(--space-4);
-        }
-
-        .testimonial-rating {
-          display: flex;
-          gap: 2px;
-          margin-bottom: var(--space-4);
-        }
-
-        .star-filled {
-          color: #f59e0b;
-          font-size: var(--font-size-sm);
-        }
-
-        .star-empty {
-          color: var(--color-gray-200);
-          font-size: var(--font-size-sm);
-        }
-
-        .testimonial-author {
-          display: flex;
-          align-items: center;
-          gap: var(--space-3);
-          padding-top: var(--space-4);
-          border-top: 1px solid var(--color-gray-100);
-        }
-
-        .testimonial-avatar {
-          width: 44px;
-          height: 44px;
-          border-radius: var(--radius-full);
-          object-fit: cover;
-        }
-
-        .testimonial-name {
-          font-size: var(--font-size-sm);
-          font-weight: 600;
-          color: var(--color-heading);
-        }
-
-        .testimonial-position {
-          font-size: var(--font-size-xs);
-          color: var(--color-text-light);
-        }
-
-        @media (min-width: 640px) {
-          .testimonials-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .testimonials-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-      `}</style>
-    </section>
-  );
-};
-
 const CTASection: React.FC = () => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.2 });
 
@@ -662,7 +526,6 @@ const Home: React.FC = () => {
       <AdvantagesSection />
       <FeaturedProductsSection />
       <StatsSection />
-      <TestimonialsSection />
       <CTASection />
     </main>
   );
