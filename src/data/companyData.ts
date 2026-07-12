@@ -223,7 +223,7 @@ export const teamMembers: TeamMember[] = [
 ];
 
 export const contactInfo = {
-  address: 'Jl.Pahlawan Kec.Kadolo Kel.Kokalukuna Kota Baubau, Sulawesi Tenggara',
+  address: 'Jl.Pahlawan Kel.Kadolo Kec.Kokalukuna Kota Baubau, Sulawesi Tenggara',
   email: 'antonmajadarman@gmail.com',
   phone: '+62-852-5531-0307',
   whatsapp: '6285255310307',

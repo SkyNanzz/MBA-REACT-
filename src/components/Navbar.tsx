@@ -215,11 +215,12 @@ const Navbar: React.FC = () => {
 
         .navbar-nav-link:hover {
           opacity: 1;
+          transform: translateY(-1px);
         }
 
         .navbar-transparent .navbar-nav-link:hover {
           color: var(--color-white);
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.15);
         }
 
         .navbar-solid .navbar-nav-link:hover {
@@ -249,6 +250,29 @@ const Navbar: React.FC = () => {
           height: 2px;
           background: var(--color-gold);
           border-radius: var(--radius-full);
+          transform: scaleX(1);
+          transition: transform var(--transition-fast);
+        }
+
+        .navbar-nav-link:not(.navbar-nav-link-active)::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: var(--space-3);
+          right: var(--space-3);
+          height: 2px;
+          background: var(--color-gold);
+          border-radius: var(--radius-full);
+          transform: scaleX(0);
+          transition: transform var(--transition-fast);
+        }
+
+        .navbar-nav-link:not(.navbar-nav-link-active):hover::after {
+          transform: scaleX(1);
+        }
+
+        .navbar-nav-link {
+          position: relative;
         }
 
         .navbar-nav-cta {

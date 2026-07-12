@@ -154,12 +154,23 @@ const Gallery: React.FC = () => {
         .gallery-filter-btn:hover {
           border-color: var(--color-primary);
           color: var(--color-primary);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(26, 125, 58, 0.15);
+        }
+
+        .gallery-filter-btn:active {
+          transform: translateY(0);
         }
 
         .gallery-filter-btn.active {
           background: var(--color-primary);
           border-color: var(--color-primary);
           color: var(--color-white);
+        }
+
+        .gallery-filter-btn.active:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 16px rgba(26, 125, 58, 0.3);
         }
 
         .gallery-grid {
@@ -199,7 +210,7 @@ const Gallery: React.FC = () => {
         .gallery-item-overlay {
           position: absolute;
           inset: 0;
-          background: rgba(0, 0, 0, 0.4);
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -207,12 +218,26 @@ const Gallery: React.FC = () => {
           transition: opacity var(--transition-base);
         }
 
+        .gallery-item-overlay svg {
+          transform: translateY(10px) scale(0.9);
+          transition: transform var(--transition-base);
+        }
+
         .gallery-item-btn:hover .gallery-item-overlay {
           opacity: 1;
         }
 
+        .gallery-item-btn:hover .gallery-item-overlay svg {
+          transform: translateY(0) scale(1);
+        }
+
         .gallery-item-label {
           padding: var(--space-2) 0;
+          transition: padding var(--transition-fast);
+        }
+
+        .gallery-item-btn:hover .gallery-item-label {
+          padding-left: var(--space-1);
         }
 
         .gallery-item-category {
@@ -222,6 +247,11 @@ const Gallery: React.FC = () => {
           color: var(--color-primary);
           text-transform: uppercase;
           letter-spacing: 1px;
+          transition: color var(--transition-fast);
+        }
+
+        .gallery-item-btn:hover .gallery-item-category {
+          color: var(--color-primary-dark);
         }
 
         .gallery-item-placeholder {

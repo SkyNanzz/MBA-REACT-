@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -19,19 +19,43 @@ function getInitialTheme(): Theme {
   return getSystemTheme();
 }
 
-function applyTheme(theme: Theme) {
+const TRANSITION_DURATION = 350;
+let transitionTimeoutId: ReturnType<typeof setTimeout> | null = null;
+
+function applyTheme(theme: Theme, animate = true) {
+  // Clear any pending timeout from previous rapid toggles
+  if (transitionTimeoutId !== null) {
+    clearTimeout(transitionTimeoutId);
+    transitionTimeoutId = null;
+  }
+
+  if (animate) {
+    // Add transition class for smooth global color animation
+    document.documentElement.classList.add('theme-transitioning');
+  }
+
   if (theme === 'dark') {
     document.documentElement.setAttribute('data-theme', 'dark');
   } else {
     document.documentElement.removeAttribute('data-theme');
+  }
+
+  if (animate) {
+    // Remove transition class after animation completes
+    transitionTimeoutId = setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+      transitionTimeoutId = null;
+    }, TRANSITION_DURATION);
   }
 }
 
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>(getInitialTheme);
 
+  const isFirstRender = useRef(true);
+
   useEffect(() => {
-    applyTheme(theme);
+    applyTheme(theme, false);
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
@@ -48,7 +72,13 @@ export function useTheme() {
   }, []);
 
   useEffect(() => {
-    applyTheme(theme);
+    // Skip animation on first render to avoid flash
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    // Subsequent theme changes: animate smoothly
+    applyTheme(theme, true);
   }, [theme]);
 
   const setTheme = useCallback((newTheme: Theme) => {

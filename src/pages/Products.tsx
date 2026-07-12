@@ -189,12 +189,23 @@ const Products: React.FC = () => {
         .product-filter-btn:hover {
           border-color: var(--color-primary);
           color: var(--color-primary);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(26, 125, 58, 0.15);
+        }
+
+        .product-filter-btn:active {
+          transform: translateY(0);
         }
 
         .product-filter-btn.active {
           background: var(--color-primary);
           border-color: var(--color-primary);
           color: var(--color-white);
+        }
+
+        .product-filter-btn.active:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 16px rgba(26, 125, 58, 0.3);
         }
 
         .product-detail {

@@ -152,6 +152,32 @@ const HeroSection: React.FC = () => {
         .hero-svg {
           width: 100%;
           height: 100%;
+          animation: hero-float 6s ease-in-out infinite;
+        }
+
+        @keyframes hero-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+
+        .hero-image-frame {
+          width: 320px;
+          height: 320px;
+          position: relative;
+        }
+
+        .hero-image-frame::before {
+          content: '';
+          position: absolute;
+          inset: -10px;
+          border-radius: var(--radius-full);
+          background: radial-gradient(circle, rgba(200, 168, 78, 0.15) 0%, transparent 70%);
+          animation: hero-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes hero-glow {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.05); }
         }
 
         @media (min-width: 768px) {
@@ -338,11 +364,13 @@ const StatsSection: React.FC = () => {
         <div ref={ref} className="stats-grid">
           {statistics.map((stat) => (
             <div key={stat.id} className={`stat-item fade-in-scale ${isVisible ? 'visible' : ''}`}>
-              <div className="stat-icon">
-                {stat.id === 's1' && <FaLeaf />}
-                {stat.id === 's2' && <FaIndustry />}
-                {stat.id === 's3' && <FaMapMarkerAlt />}
-                {stat.id === 's4' && <FaStar />}
+              <div className="stat-icon-wrapper">
+                <div className="stat-icon">
+                  {stat.id === 's1' && <FaLeaf />}
+                  {stat.id === 's2' && <FaIndustry />}
+                  {stat.id === 's3' && <FaMapMarkerAlt />}
+                  {stat.id === 's4' && <FaStar />}
+                </div>
               </div>
               <div className="stat-value">{stat.value}</div>
               <div className="stat-label">{stat.label}</div>
@@ -379,12 +407,39 @@ const StatsSection: React.FC = () => {
           background: rgba(255, 255, 255, 0.08);
           backdrop-filter: blur(10px);
           border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all var(--transition-base);
+          cursor: default;
+        }
+
+        .stat-item:hover {
+          transform: translateY(-6px);
+          background: rgba(255, 255, 255, 0.12);
+          border-color: rgba(200, 168, 78, 0.3);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-icon-wrapper {
+          display: inline-flex;
+          padding: var(--space-3);
+          border-radius: var(--radius-lg);
+          background: rgba(200, 168, 78, 0.15);
+          margin-bottom: var(--space-4);
+          transition: all var(--transition-base);
+        }
+
+        .stat-item:hover .stat-icon-wrapper {
+          background: rgba(200, 168, 78, 0.25);
+          transform: scale(1.1);
         }
 
         .stat-icon {
-          font-size: var(--font-size-3xl);
+          font-size: var(--font-size-2xl);
           color: var(--color-gold);
-          margin-bottom: var(--space-4);
+          transition: transform var(--transition-base);
+        }
+
+        .stat-item:hover .stat-icon {
+          transform: rotate(-8deg);
         }
 
         .stat-value {

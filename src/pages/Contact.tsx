@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaWhatsapp, FaPaperPlane, FaCheckCircle, FaClock } from 'react-icons/fa';
 import { contactInfo } from '../data/companyData';
 import Button from '../components/Button';
+import { useToast } from '../contexts/ToastContext';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 interface FormData {
@@ -30,6 +31,7 @@ const Contact: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { addToast } = useToast();
 
   useEffect(() => {
     document.title = 'Kontak - MBA Mandiri Buton Atsiri';
@@ -58,9 +60,10 @@ const Contact: React.FC = () => {
 
     setIsSubmitting(true);
     // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     setIsSubmitting(false);
     setSubmitted(true);
+    addToast({ type: 'success', message: 'Pesan Anda berhasil terkirim! Kami akan merespon dalam 1x24 jam.' });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -342,6 +345,12 @@ const Contact: React.FC = () => {
           font-size: var(--font-size-lg);
           color: var(--color-primary);
           flex-shrink: 0;
+          transition: all var(--transition-base);
+        }
+
+        .contact-detail-item:hover .contact-detail-icon {
+          transform: scale(1.1) rotate(-5deg);
+          box-shadow: 0 4px 12px rgba(26, 125, 58, 0.2);
         }
 
         .contact-detail-label {
@@ -364,8 +373,26 @@ const Contact: React.FC = () => {
           text-decoration: none;
         }
 
+        .contact-detail-link {
+          font-size: var(--font-size-sm);
+          color: var(--color-primary);
+          text-decoration: none;
+          transition: color var(--transition-fast);
+        }
+
         .contact-detail-link:hover {
+          color: var(--color-primary-dark);
           text-decoration: underline;
+        }
+
+        .contact-detail-item {
+          display: flex;
+          gap: var(--space-4);
+          transition: transform var(--transition-base);
+        }
+
+        .contact-detail-item:hover {
+          transform: translateX(4px);
         }
 
         .contact-hours {
@@ -410,6 +437,12 @@ const Contact: React.FC = () => {
           border-radius: var(--radius-xl);
           box-shadow: var(--shadow-sm);
           border: 1px solid var(--color-border);
+          transition: all var(--transition-base);
+        }
+
+        .contact-form-wrapper:hover {
+          box-shadow: var(--shadow-md);
+          border-color: var(--color-primary);
         }
 
         .contact-form-title {

@@ -1,11 +1,14 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import WhatsAppFloat from './components/WhatsAppFloat';
 import LoadingSpinner from './components/LoadingSpinner';
+import { ToastProvider, ToastContainer } from './contexts/ToastContext';
 import { useTheme } from './hooks/useTheme';
+import AnimatedPage from './components/AnimatedPage';
 
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
@@ -26,6 +29,7 @@ const ScrollToTopOnNavigate: React.FC = () => {
 
 const AppContent: React.FC = () => {
   useTheme();
+  const location = useLocation();
 
   return (
     <>
@@ -34,14 +38,18 @@ const AppContent: React.FC = () => {
         <Navbar />
         <main className="main-content">
           <Suspense fallback={<LoadingSpinner text="Memuat halaman..." />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/tentang" element={<About />} />
-              <Route path="/produk" element={<Products />} />
-              <Route path="/galeri" element={<Gallery />} />
-              <Route path="/kontak" element={<Contact />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <AnimatePresence mode="wait">
+              <AnimatedPage key={location.pathname}>
+                <Routes location={location}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/tentang" element={<About />} />
+                  <Route path="/produk" element={<Products />} />
+                  <Route path="/galeri" element={<Gallery />} />
+                  <Route path="/kontak" element={<Contact />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </AnimatedPage>
+            </AnimatePresence>
           </Suspense>
         </main>
         <Footer />
@@ -55,7 +63,10 @@ const AppContent: React.FC = () => {
 const App: React.FC = () => {
   return (
     <Router>
-      <AppContent />
+      <ToastProvider>
+        <AppContent />
+        <ToastContainer />
+      </ToastProvider>
       <style>{`
         .app {
           display: flex;

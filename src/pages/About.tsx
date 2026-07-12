@@ -187,10 +187,13 @@ const VisionMissionSection: React.FC = () => {
           border-radius: var(--radius-xl);
           box-shadow: var(--shadow-sm);
           border: 1px solid var(--color-border);
+          transition: all var(--transition-base);
         }
 
         .vm-card:hover {
-          box-shadow: var(--shadow-md);
+          transform: translateY(-4px);
+          box-shadow: var(--shadow-lg);
+          border-color: var(--color-primary);
         }
 
         .vm-icon {
@@ -204,6 +207,13 @@ const VisionMissionSection: React.FC = () => {
           font-size: var(--font-size-2xl);
           color: var(--color-primary);
           margin-bottom: var(--space-5);
+          transition: all var(--transition-base);
+        }
+
+        .vm-card:hover .vm-icon {
+          background: var(--color-primary);
+          color: var(--color-white);
+          transform: scale(1.1) rotate(-5deg);
         }
 
         .vm-title {

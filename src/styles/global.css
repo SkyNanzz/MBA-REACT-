@@ -500,6 +500,41 @@ p {
   }
 }
 
+/* ===================== SMOOTH HOVER UTILITIES ===================== */
+.hover-lift {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hover-glow {
+  transition: all var(--transition-base);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(26, 125, 58, 0.15);
+}
+
+.hover-scale {
+  transition: transform var(--transition-base);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-border-glow {
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hover-border-glow:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(26, 125, 58, 0.1);
+}
+
 /* ===================== ANIMATIONS ===================== */
 .fade-in {
   opacity: 0;
@@ -609,6 +644,55 @@ p {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* ===================== BUTTON RIPPLE ===================== */
+.btn-ripple-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple-anim 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ===================== SKELETON ===================== */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-200) 25%,
+    var(--color-gray-100) 50%,
+    var(--color-gray-200) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+[data-theme="dark"] .skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-300) 25%,
+    var(--color-gray-200) 50%,
+    var(--color-gray-300) 75%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* ===================== LOADING SPINNER ===================== */
@@ -809,14 +893,21 @@ p {
   font-size: var(--font-size-base);
   color: var(--color-text);
   background: var(--color-white);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
   outline: none;
+}
+
+.form-input:hover,
+.form-textarea:hover {
+  border-color: var(--color-gray-400);
+  background: var(--color-bg-alt);
 }
 
 .form-input:focus,
 .form-textarea:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(26, 125, 58, 0.1);
+  background: var(--color-white);
 }
 
 .form-input::placeholder,
@@ -931,7 +1022,16 @@ p {
   --shadow-green: 0 4px 20px rgba(34, 197, 94, 0.15);
 }
 
-/* Theme transition on body */
+/* ===================== THEME TRANSITION ===================== */
+/* Smooth global color transitions when toggling dark/light mode */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: all 0.35s ease !important;
+  transition-delay: 0s !important;
+}
+
 body {
   transition: background-color var(--transition-base), color var(--transition-base);
 }

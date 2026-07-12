@@ -146,10 +146,17 @@ const Lightbox: React.FC<LightboxProps> = ({ images, currentIndex, onClose, onNa
           cursor: pointer;
           transition: all var(--transition-fast);
           z-index: 1;
+          backdrop-filter: blur(4px);
         }
 
         .lightbox-nav:hover {
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.25);
+          transform: translateY(-50%) scale(1.15);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .lightbox-nav:active {
+          transform: translateY(-50%) scale(0.95);
         }
 
         .lightbox-prev {
