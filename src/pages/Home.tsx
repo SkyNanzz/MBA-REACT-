@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaLeaf, FaIndustry, FaGlobeAsia, FaUsers, FaCertificate, FaTruck, FaStar, FaArrowRight } from 'react-icons/fa';
+import { FaLeaf, FaIndustry, FaUsers, FaCertificate, FaTruck, FaStar, FaArrowRight, FaMapMarkerAlt } from 'react-icons/fa';
 import Button from '../components/Button';
 import SectionTitle from '../components/SectionTitle';
 import Card, { CardImage, CardBody } from '../components/Card';
@@ -16,13 +16,13 @@ const HeroSection: React.FC = () => {
       </div>
       <div className="hero-content">
         <div className="hero-text">
-          <span className="hero-badge fade-in visible">Premium Essential Oil Indonesia</span>
+          <span className="hero-badge fade-in visible">Essential Oil Asli Buton</span>
           <h1 className="hero-title fade-in visible">
             MBA <span className="text-gold">Mandiri</span> Buton Atsiri
           </h1>
           <p className="hero-description fade-in visible">
-            Produsen dan eksportir minyak atsiri (essential oil) premium dari Buton, 
-            Sulawesi Tenggara. Menghadirkan kekayaan alam Indonesia ke pasar global 
+            Produsen minyak atsiri (essential oil) dari Buton, 
+            Sulawesi Tenggara. Menghadirkan kekayaan alam Indonesia 
             dengan kualitas terbaik dan komitmen keberlanjutan.
           </p>
           <div className="hero-actions fade-in visible">
@@ -208,7 +208,7 @@ const AdvantagesSection: React.FC = () => {
               <div className="advantage-icon">
                 {index === 0 && <FaLeaf />}
                 {index === 1 && <FaIndustry />}
-                {index === 2 && <FaGlobeAsia />}
+                {index === 2 && <FaMapMarkerAlt />}
                 {index === 3 && <FaUsers />}
                 {index === 4 && <FaCertificate />}
                 {index === 5 && <FaTruck />}
@@ -285,7 +285,7 @@ const FeaturedProductsSection: React.FC = () => {
         <SectionTitle
           subtitle="Produk Unggulan"
           title="Essential Oil Premium Kami"
-          description="Kami memproduksi berbagai jenis minyak atsiri berkualitas ekspor dengan kadar senyawa aktif yang optimal."
+          description="Kami memproduksi berbagai jenis minyak atsiri berkualitas dengan kadar senyawa aktif yang optimal untuk kebutuhan Anda."
         />
         <div ref={ref} className="grid grid-3 stagger-children">
           {featuredProducts.map((product, index) => (
@@ -341,7 +341,7 @@ const StatsSection: React.FC = () => {
               <div className="stat-icon">
                 {stat.id === 's1' && <FaLeaf />}
                 {stat.id === 's2' && <FaIndustry />}
-                {stat.id === 's3' && <FaGlobeAsia />}
+                {stat.id === 's3' && <FaMapMarkerAlt />}
                 {stat.id === 's4' && <FaStar />}
               </div>
               <div className="stat-value">{stat.value}</div>
@@ -513,10 +513,10 @@ const CTASection: React.FC = () => {
 
 const Home: React.FC = () => {
   React.useEffect(() => {
-    document.title = 'MBA Mandiri Buton Atsiri - Premium Essential Oil Indonesia';
+    document.title = 'MBA Mandiri Buton Atsiri - Essential Oil Buton';
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute('content', 'MBA Mandiri Buton Atsiri - Produsen dan eksportir minyak atsiri (essential oil) premium dari Buton, Sulawesi Tenggara. Kualitas ekspor, harga kompetitif.');
+      metaDesc.setAttribute('content', 'MBA Mandiri Buton Atsiri - Produsen minyak atsiri (essential oil) dari Buton, Sulawesi Tenggara. Kualitas terbaik, harga bersahabat.');
     }
   }, []);
 

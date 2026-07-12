@@ -25,7 +25,7 @@ const About: React.FC = () => {
             </div>
             <h1>Tentang Kami</h1>
             <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto' }}>
-              Perjalanan panjang kami dalam menghadirkan essential oil premium Indonesia ke pasar global
+              Perjalanan kami dalam menghadirkan essential oil terbaik dari Buton untuk Indonesia
             </p>
           </div>
         </div>
@@ -51,24 +51,24 @@ const StorySection: React.FC = () => {
           <div className={`story-content fade-in-left ${isVisible ? 'visible' : ''}`}>
             <span className="section-subtitle">Sejarah Kami</span>
             <h2 className="section-title" style={{ textAlign: 'left', maxWidth: 500 }}>
-              Dari Buton untuk Dunia
+              Dari Buton untuk Indonesia
             </h2>
             <div className="section-divider" style={{ margin: 'var(--space-6) 0' }} />
             <p style={{ marginBottom: 'var(--space-4)' }}>
               Berdiri sejak tahun 2008, MBA Mandiri Buton Atsiri memulai perjalanan sebagai perusahaan 
               keluarga yang fokus pada pengolahan minyak nilam, komoditas unggulan dari tanah Buton, 
-              Sulawesi Tenggara — daerah yang dikenal sebagai salah satu penghasil minyak nilam terbaik di dunia.
+              Sulawesi Tenggara — daerah yang dikenal sebagai penghasil minyak nilam terbaik di Indonesia.
             </p>
             <p style={{ marginBottom: 'var(--space-4)' }}>
               Berbekal kekayaan alam Buton dan keahlian turun-temurun dalam penyulingan minyak atsiri, 
-              kami tumbuh menjadi perusahaan yang dipercaya oleh pembeli dari berbagai penjuru dunia. 
-              Dari Jerman hingga Jepang, dari Amerika Serikat hingga Perancis — essential oil kami telah 
-              menjadi pilihan utama bagi industri parfum, kosmetik, farmasi, dan aromaterapi global.
+              kami tumbuh menjadi produsen yang dipercaya oleh pelanggan dari berbagai daerah di Indonesia. 
+              Dari industri rumah tangga hingga usaha menengah — essential oil kami telah 
+              menjadi pilihan utama bagi kebutuhan parfum, kosmetik, farmasi, dan aromaterapi.
             </p>
             <p style={{ marginBottom: 'var(--space-6)' }}>
-              Kini dengan kapasitas produksi lebih dari 500 ton per tahun dan jaringan petani binaan 
-              di seluruh Sulawesi Tenggara, kami terus berkomitmen untuk menghadirkan essential oil 
-              berkualitas premium yang membawa nama baik Indonesia di pasar internasional.
+              Dengan jaringan petani binaan yang terus bertambah di seluruh Sulawesi Tenggara, 
+              kami berkomitmen untuk menghadirkan essential oil 
+              berkualitas terbaik dari Buton untuk seluruh masyarakat Indonesia.
             </p>
             <Button variant="primary" href="/produk">
               Lihat Produk Kami <FaArrowRight />
@@ -139,8 +139,8 @@ const VisionMissionSection: React.FC = () => {
             </div>
             <h3 className="vm-title">Visi</h3>
             <p className="vm-text">
-              Menjadi produsen dan eksportir minyak atsiri terkemuka asal Indonesia yang diakui 
-              dunia atas kualitas premium, inovasi berkelanjutan, dan kontribusi nyata dalam 
+              Menjadi produsen minyak atsiri terkemuka dari Buton yang dikenal 
+              di Indonesia atas kualitas terbaik, inovasi berkelanjutan, dan kontribusi nyata dalam 
               pemberdayaan petani lokal serta kelestarian lingkungan.
             </p>
           </div>
@@ -152,7 +152,7 @@ const VisionMissionSection: React.FC = () => {
             <ul className="vm-list">
               <li className="vm-list-item">
                 <FaCheckCircle className="vm-check" />
-                <span>Memproduksi essential oil berkualitas premium yang memenuhi standar internasional</span>
+                <span>Memproduksi essential oil berkualitas yang memenuhi standar mutu nasional</span>
               </li>
               <li className="vm-list-item">
                 <FaCheckCircle className="vm-check" />
@@ -168,7 +168,7 @@ const VisionMissionSection: React.FC = () => {
               </li>
               <li className="vm-list-item">
                 <FaCheckCircle className="vm-check" />
-                <span>Memberikan pelayanan terbaik kepada mitra bisnis di seluruh dunia</span>
+                <span>Memberikan pelayanan terbaik kepada mitra bisnis di seluruh Indonesia</span>
               </li>
             </ul>
           </div>
@@ -341,7 +341,7 @@ const TimelineSection: React.FC = () => {
         <SectionTitle
           subtitle="Perjalanan"
           title="Timeline Perusahaan"
-          description="Perjalanan panjang MBA Mandiri Buton Atsiri sejak berdiri hingga menjadi perusahaan yang diakui secara global."
+          description="Perjalanan MBA Mandiri Buton Atsiri sejak berdiri hingga menjadi produsen yang dikenal di Indonesia."
         />
         <div ref={ref} className="timeline">
           <div className="timeline-line" aria-hidden="true" />

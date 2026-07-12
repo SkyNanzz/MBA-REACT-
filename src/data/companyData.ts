@@ -14,7 +14,7 @@ export const products: Product[] = [
     name: 'Minyak Nilam',
     slug: 'minyak-nilam',
     image: 'https://images.unsplash.com/photo-1588409985743-68ad0f404427?w=600&q=80',
-    description: 'Minyak nilam (Patchouli Oil) premium kualitas ekspor dengan kadar patchouli alcohol tinggi. Diproses melalui distilasi uap dari daun nilam pilihan yang dibudidayakan di perkebunan terbaik Indonesia.',
+    description: 'Minyak nilam (Patchouli Oil) premium dengan kadar patchouli alcohol tinggi. Diproses melalui distilasi uap dari daun nilam pilihan yang dibudidayakan di perkebunan lokal Buton.',
     benefits: [
       'Menenangkan pikiran dan mengurangi stres',
       'Mengatasi masalah kulit dan jerawat',
@@ -38,7 +38,7 @@ export const products: Product[] = [
     name: 'Minyak Kayu Putih',
     slug: 'minyak-kayu-putih',
     image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80',
-    description: 'Minyak kayu putih (Cajuput Oil) berkualitas premium dengan kadar sineol tinggi. Diproduksi dari daun Melaleuca cajuputi yang tumbuh subur di wilayah Buton.',
+    description: 'Minyak kayu putih (Cajuput Oil) berkualitas dengan kadar sineol tinggi. Diproduksi dari daun Melaleuca cajuputi yang tumbuh subur di wilayah Buton.',
     benefits: [
       'Meredakan masuk angin dan perut kembung',
       'Menghangatkan tubuh',
@@ -110,7 +110,7 @@ export const products: Product[] = [
     name: 'Minyak Sereh Wangi',
     slug: 'minyak-sereh-wangi',
     image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=600&q=80',
-    description: 'Minyak sereh wangi (Citronella Oil) berkualitas premium. Aromanya yang segar dan kuat sangat efektif sebagai pengusir nyamuk alami dan bahan baku industri.',
+    description: 'Minyak sereh wangi (Citronella Oil) berkualitas. Aromanya yang segar dan kuat sangat efektif sebagai pengusir nyamuk alami dan bahan baku industri rumahan.',
     benefits: [
       'Pengusir nyamuk alami dan efektif',
       'Menyegarkan ruangan',
@@ -135,21 +135,21 @@ export const products: Product[] = [
 export const statistics: Statistic[] = [
   {
     id: 's1',
-    value: '15+',
+    value: '10+',
     label: 'Tahun Pengalaman',
     icon: 'FaClock',
   },
   {
     id: 's2',
-    value: '500+',
-    label: 'Ton Produksi per Tahun',
+    value: '100+',
+    label: 'Kilogram Produksi per Tahun',
     icon: 'FaIndustry',
   },
   {
     id: 's3',
     value: '12+',
-    label: 'Negara Tujuan Ekspor',
-    icon: 'FaGlobe',
+    label: 'Kota di Indonesia',
+    icon: 'FaMapMarkerAlt',
   },
   {
     id: 's4',
@@ -170,7 +170,7 @@ export const galleryItems: GalleryItem[] = [
   { id: 'g7', src: 'https://images.unsplash.com/photo-1541888946425-d81bb47bae4e?w=800&q=80', alt: 'Area produksi', category: 'produksi' },
   { id: 'g8', src: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80', alt: 'Tim MBA', category: 'perusahaan' },
   { id: 'g9', src: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800&q=80', alt: 'Tanaman sereh wangi', category: 'perkebunan' },
-  { id: 'g10', src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=800&q=80', alt: 'Produk kemasan ekspor', category: 'produk' },
+  { id: 'g10', src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=800&q=80', alt: 'Produk kemasan siap kirim', category: 'produk' },
   { id: 'g11', src: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80', alt: 'Ruang kontrol produksi', category: 'produksi' },
   { id: 'g12', src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80', alt: 'Kantor dan tim', category: 'perusahaan' },
 ];
@@ -183,18 +183,18 @@ export const timeline: TimelineItem[] = [
   },
   {
     year: '2011',
-    title: 'Ekspor Perdana',
-    description: 'Melakukan pengiriman ekspor pertama minyak nilam ke Malaysia dan Singapura, menandai langkah awal di pasar internasional.',
+    title: 'Distribusi Perdana',
+    description: 'Memperluas jaringan distribusi ke berbagai kota di Sulawesi Tenggara, menandai langkah awal pengembangan pasar regional.',
   },
   {
     year: '2014',
     title: 'Sertifikasi ISO',
-    description: 'Memperoleh sertifikasi ISO 9001:2008 untuk sistem manajemen mutu, meningkatkan kredibilitas di mata pembeli internasional.',
+    description: 'Memperoleh sertifikasi mutu untuk sistem manajemen produksi, meningkatkan kepercayaan pelanggan di pasar domestik.',
   },
   {
     year: '2017',
-    title: 'Ekspansi Pasar',
-    description: 'Memperluas pasar ke Eropa dan Amerika Serikat. Produksi mencapai 300 ton per tahun dengan jaringan petani binaan yang luas.',
+    title: 'Perluas Jaringan',
+    description: 'Memperluas jangkauan pemasaran ke berbagai kota di Indonesia. Produksi terus ditingkatkan dengan jaringan petani binaan yang semakin luas.',
   },
   {
     year: '2020',
@@ -203,13 +203,13 @@ export const timeline: TimelineItem[] = [
   },
   {
     year: '2023',
-    title: 'Sertifikasi Organik',
-    description: 'Memperoleh sertifikasi organik internasional untuk sebagian besar produk, membuka akses ke pasar premium global.',
+    title: 'Sertifikasi Produk',
+    description: 'Memperoleh sertifikasi organik untuk produk unggulan, meningkatkan daya saing di pasar nasional.',
   },
   {
     year: '2025',
     title: 'Pencapaian Baru',
-    description: 'Produksi mencapai 500+ ton per tahun dengan 12+ negara tujuan ekspor dan jaringan petani binaan di seluruh Sulawesi Tenggara.',
+    description: 'Produksi semakin meningkat dengan jaringan petani binaan yang bertambah di seluruh Sulawesi Tenggara dan jangkauan pemasaran ke berbagai daerah di Indonesia.',
   },
 ];
 
@@ -222,7 +222,7 @@ export const companyValues: CompanyValue[] = [
   {
     icon: 'FaAward',
     title: 'Kualitas Premium',
-    description: 'Komitmen pada standar kualitas tertinggi dalam setiap tetes essential oil yang diproduksi untuk kepuasan pelanggan global.',
+    description: 'Komitmen pada standar kualitas tertinggi dalam setiap tetes essential oil yang diproduksi untuk kepuasan pelanggan di Indonesia.',
   },
   {
     icon: 'FaHandshake',
@@ -249,8 +249,8 @@ export const advantages: Advantage[] = [
   },
   {
     icon: 'FaGlobeAsia',
-    title: 'Jangkauan Global',
-    description: 'Jaringan distribusi internasional yang luas dengan standar ekspor yang telah diakui pasar global.',
+    title: 'Jangkauan Lokal',
+    description: 'Jaringan distribusi yang terus berkembang di berbagai kota di Indonesia dengan pelayanan yang dekat dengan pelanggan.',
   },
   {
     icon: 'FaUsers',
@@ -260,12 +260,12 @@ export const advantages: Advantage[] = [
   {
     icon: 'FaCertificate',
     title: 'Bersertifikasi',
-    description: 'Produk bersertifikasi ISO dan standar internasional lainnya yang menjamin kualitas dan keamanan.',
+    description: 'Produk bersertifikasi dan terjamin kualitasnya melalui proses kontrol mutu yang ketat dan transparan.',
   },
   {
     icon: 'FaTruck',
     title: 'Logistik Andal',
-    description: 'Sistem logistik yang handal dengan ketepatan pengiriman yang terjaga ke seluruh penjuru dunia.',
+    description: 'Sistem logistik yang handal dengan ketepatan pengiriman yang terjaga ke seluruh wilayah Indonesia.'
   },
 ];
 
@@ -275,7 +275,7 @@ export const teamMembers: TeamMember[] = [
     name: 'La Ode Muhammad Arsyad',
     position: 'Direktur Utama',
     avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80',
-    description: 'Berpengalaman lebih dari 20 tahun di industri minyak atsiri dan perdagangan internasional.',
+    description: 'Berpengalaman lebih dari 20 tahun di industri minyak atsiri dan pemasaran di Indonesia.',
   },
   {
     id: 'tm2',
@@ -289,7 +289,7 @@ export const teamMembers: TeamMember[] = [
     name: 'La Ode Askar',
     position: 'Direktur Pemasaran',
     avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&q=80',
-    description: 'Memiliki jaringan pemasaran global yang luas di industri fragrance dan essential oil.',
+    description: 'Memiliki pengalaman luas di industri fragrance dan essential oil serta jaringan pemasaran di berbagai daerah di Indonesia.'
   },
 ];
 

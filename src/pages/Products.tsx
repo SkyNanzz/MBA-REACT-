@@ -13,7 +13,7 @@ const Products: React.FC = () => {
     document.title = 'Produk - MBA Mandiri Buton Atsiri';
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute('content', 'Produk essential oil premium MBA Mandiri Buton Atsiri: Minyak Nilam, Kayu Putih, Cengkeh, Pala, dan Sereh Wangi. Kualitas ekspor.');
+      metaDesc.setAttribute('content', 'Produk essential oil MBA Mandiri Buton Atsiri: Minyak Nilam, Kayu Putih, Cengkeh, Pala, dan Sereh Wangi. Kualitas terbaik dari Buton.');
     }
 
     if (window.location.hash) {
@@ -43,7 +43,7 @@ const Products: React.FC = () => {
             </div>
             <h1>Produk Kami</h1>
             <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto' }}>
-              Essential oil premium berkualitas ekspor dari bahan baku terbaik Indonesia
+              Essential oil berkualitas dari bahan baku terbaik Buton, Sulawesi Tenggara
             </p>
           </div>
         </div>
@@ -54,7 +54,7 @@ const Products: React.FC = () => {
           <SectionTitle
             subtitle="Produk Unggulan"
             title="Essential Oil Premium"
-            description="Setiap produk kami melalui proses kontrol kualitas ketat untuk memastikan kemurnian dan konsistensi yang memenuhi standar internasional."
+            description="Setiap produk kami melalui proses kontrol kualitas ketat untuk memastikan kemurnian dan konsistensi terbaik."
           />
 
           <div className="product-filters">

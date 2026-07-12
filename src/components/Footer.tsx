@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
                 </div>
               </Link>
               <p className="footer-description">
-                Perusahaan produsen dan eksportir minyak atsiri (essential oil) premium dari Buton, Sulawesi Tenggara. Berkomitmen pada kualitas, keberlanjutan, dan kepuasan pelanggan global.
+                Produsen minyak atsiri (essential oil) dari Buton, Sulawesi Tenggara. Berkomitmen pada kualitas, keberlanjutan, dan kepuasan pelanggan di Indonesia.
               </p>
               <div className="footer-social">
                 {socialLinks.map((social) => (
@@ -103,7 +103,7 @@ const Footer: React.FC = () => {
               &copy; {currentYear} MBA Mandiri Buton Atsiri. All rights reserved.
             </p>
             <p className="footer-credit">
-              Premium Essential Oil from Buton, Indonesia
+              Essential Oil Asli Buton untuk Indonesia
             </p>
           </div>
         </div>
