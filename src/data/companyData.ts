@@ -1,4 +1,4 @@
-import type { Product, Testimonial, Statistic, Article, GalleryItem, NavLink, TimelineItem, CompanyValue, Advantage, TeamMember, Certification } from '../types';
+import type { Product, Testimonial, Statistic, Article, GalleryItem, NavLink, TimelineItem, CompanyValue, Advantage, TeamMember, Certification, SocialLink } from '../types';
 
 export const navLinks: NavLink[] = [
   { label: 'Beranda', path: '/' },
