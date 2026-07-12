@@ -54,7 +54,7 @@ const StorySection: React.FC = () => {
             </h2>
             <div className="section-divider" style={{ margin: 'var(--space-6) 0' }} />
             <p style={{ marginBottom: 'var(--space-4)' }}>
-              Berdiri sejak tahun 2008, MBA Mandiri Buton Atsiri memulai perjalanan sebagai perusahaan 
+              Berdiri sejak tahun 2014, MBA Mandiri Buton Atsiri memulai perjalanan sebagai perusahaan 
               keluarga yang fokus pada pengolahan minyak nilam, komoditas unggulan dari tanah Buton, 
               Sulawesi Tenggara — daerah yang dikenal sebagai penghasil minyak nilam terbaik di Indonesia.
             </p>
