@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaLeaf, FaAward, FaHandshake, FaFlask, FaCheckCircle, FaArrowRight, FaBullseye, FaEye } from 'react-icons/fa';
 import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button';
-import { companyValues, timeline, teamMembers } from '../data/companyData';
+import { companyValues, teamMembers } from '../data/companyData';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 const About: React.FC = () => {
@@ -34,7 +34,6 @@ const About: React.FC = () => {
       <StorySection />
       <VisionMissionSection />
       <ValuesSection />
-      <TimelineSection />
       <TeamSection />
       <CTASection />
     </main>
@@ -326,134 +325,6 @@ const ValuesSection: React.FC = () => {
           color: var(--color-text-light);
           line-height: var(--line-height-relaxed);
           margin: 0;
-        }
-      `}</style>
-    </section>
-  );
-};
-
-const TimelineSection: React.FC = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.05 });
-
-  return (
-    <section className="section section-alt">
-      <div className="container">
-        <SectionTitle
-          subtitle="Perjalanan"
-          title="Timeline Perusahaan"
-          description="Perjalanan MBA Mandiri Buton Atsiri sejak berdiri hingga menjadi produsen yang dikenal di Indonesia."
-        />
-        <div ref={ref} className="timeline">
-          <div className="timeline-line" aria-hidden="true" />
-          {timeline.map((item, index) => (
-            <div
-              key={index}
-              className={`timeline-item fade-in ${isVisible ? 'visible' : ''}`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <div className="timeline-marker" aria-hidden="true">
-                <div className="timeline-dot" />
-              </div>
-              <div className="timeline-content">
-                <span className="timeline-year">{item.year}</span>
-                <h3 className="timeline-title">{item.title}</h3>
-                <p className="timeline-desc">{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <style>{`
-        .timeline {
-          position: relative;
-          max-width: 680px;
-          margin: 0 auto;
-          padding-left: var(--space-8);
-        }
-
-        .timeline-line {
-          position: absolute;
-          left: 15px;
-          top: 0;
-          bottom: 0;
-          width: 2px;
-          background: linear-gradient(to bottom, var(--color-gold), var(--color-primary));
-        }
-
-        .timeline-item {
-          position: relative;
-          padding-bottom: var(--space-10);
-        }
-
-        .timeline-item:last-child {
-          padding-bottom: 0;
-        }
-
-        .timeline-marker {
-          position: absolute;
-          left: calc(-1 * var(--space-8));
-          top: 4px;
-          width: 32px;
-          display: flex;
-          justify-content: center;
-        }
-
-        .timeline-dot {
-          width: 12px;
-          height: 12px;
-          border-radius: var(--radius-full);
-          background: var(--color-gold);
-          border: 3px solid var(--color-white);
-          box-shadow: 0 0 0 2px var(--color-gold);
-        }
-
-        .timeline-content {
-          background: var(--color-white);
-          padding: var(--space-6);
-          border-radius: var(--radius-lg);
-          box-shadow: var(--shadow-sm);
-          border: 1px solid var(--color-border);
-          transition: all var(--transition-base);
-        }
-
-        .timeline-content:hover {
-          box-shadow: var(--shadow-md);
-          transform: translateX(4px);
-        }
-
-        .timeline-year {
-          display: inline-block;
-          font-family: var(--font-heading);
-          font-size: var(--font-size-sm);
-          font-weight: 700;
-          color: var(--color-gold);
-          margin-bottom: var(--space-2);
-          padding: var(--space-1) var(--space-3);
-          background: var(--color-primary-bg);
-          border-radius: var(--radius-full);
-        }
-
-        .timeline-title {
-          font-size: var(--font-size-lg);
-          font-weight: 700;
-          margin-bottom: var(--space-2);
-        }
-
-        .timeline-desc {
-          font-size: var(--font-size-sm);
-          color: var(--color-text-light);
-          line-height: var(--line-height-relaxed);
-          margin: 0;
-        }
-
-        @media (min-width: 768px) {
-          .timeline {
-            padding-left: var(--space-12);
-          }
-          .timeline-marker {
-            left: calc(-1 * var(--space-12));
-          }
         }
       `}</style>
     </section>

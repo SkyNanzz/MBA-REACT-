@@ -1,12 +1,5 @@
-/* ============================================
- * Cara menambahkan gambar produk:
- * 1. Simpan file gambar ke folder src/assets/
- * 2. Import di sini, contoh:
- *    import kayuPutihImage from '../assets/kayu-putih.jpeg';
- * 3. Gunakan variabel import sebagai nilai 'image'
- * ============================================ */
 import nilamImage from '../assets/minyak-nilam.jpeg';
-import type { Product, Statistic, GalleryItem, NavLink, TimelineItem, CompanyValue, Advantage, TeamMember, SocialLink } from '../types';
+import type { Product, Statistic, GalleryItem, NavLink, CompanyValue, Advantage, TeamMember, SocialLink } from '../types';
 
 export const navLinks: NavLink[] = [
   { label: 'Beranda', path: '/' },
@@ -147,44 +140,6 @@ export const galleryItems: GalleryItem[] = [
   { id: 'g10', src: '', alt: 'Belum ada gambar', category: 'produk' },
   { id: 'g11', src: '', alt: 'Belum ada gambar', category: 'produksi' },
   { id: 'g12', src: '', alt: 'Belum ada gambar', category: 'perusahaan' },
-];
-
-export const timeline: TimelineItem[] = [
-  {
-    year: '2008',
-    title: 'Berdirinya Perusahaan',
-    description: 'MBA Mandiri Buton Atsiri didirikan dengan visi menjadi produsen essential oil terkemuka yang berbasis di Buton, Sulawesi Tenggara.',
-  },
-  {
-    year: '2011',
-    title: 'Distribusi Perdana',
-    description: 'Memperluas jaringan distribusi ke berbagai kota di Sulawesi Tenggara, menandai langkah awal pengembangan pasar regional.',
-  },
-  {
-    year: '2014',
-    title: 'Sertifikasi ISO',
-    description: 'Memperoleh sertifikasi mutu untuk sistem manajemen produksi, meningkatkan kepercayaan pelanggan di pasar domestik.',
-  },
-  {
-    year: '2017',
-    title: 'Perluas Jaringan',
-    description: 'Memperluas jangkauan pemasaran ke berbagai kota di Indonesia. Produksi terus ditingkatkan dengan jaringan petani binaan yang semakin luas.',
-  },
-  {
-    year: '2020',
-    title: 'Modernisasi Pabrik',
-    description: 'Investasi teknologi distilasi modern untuk meningkatkan kualitas dan kapasitas produksi serta efisiensi energi.',
-  },
-  {
-    year: '2023',
-    title: 'Sertifikasi Produk',
-    description: 'Memperoleh sertifikasi organik untuk produk unggulan, meningkatkan daya saing di pasar nasional.',
-  },
-  {
-    year: '2025',
-    title: 'Pencapaian Baru',
-    description: 'Produksi semakin meningkat dengan jaringan petani binaan yang bertambah di seluruh Sulawesi Tenggara dan jangkauan pemasaran ke berbagai daerah di Indonesia.',
-  },
 ];
 
 export const companyValues: CompanyValue[] = [
