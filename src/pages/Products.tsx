@@ -85,7 +85,19 @@ const Products: React.FC = () => {
                 <div className="product-detail-grid">
                   <div className="product-detail-image">
                     <div className="product-image-wrapper">
-                      <img src={product.image} alt={product.name} loading="lazy" />
+                      {product.image ? (
+                        <img src={product.image} alt={product.name} loading="lazy" />
+                      ) : (
+                        <div className="product-image-placeholder">
+                          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 22c-5.523 0-10-4.477-10-10S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+                            <path d="M12 8v8" />
+                            <path d="M8 12h8" />
+                          </svg>
+                          <span className="product-image-placeholder-text">Gambar Belum Tersedia</span>
+                          <span className="product-image-placeholder-hint">Upload gambar ke folder assets untuk menampilkan produk</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="product-detail-info">
@@ -206,6 +218,44 @@ const Products: React.FC = () => {
 
         .product-image-wrapper:hover img {
           transform: scale(1.05);
+        }
+
+        .product-image-placeholder {
+          width: 100%;
+          height: 100%;
+          aspect-ratio: 4/3;
+          background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          padding: 32px 24px;
+          color: #15803d;
+        }
+
+        .product-image-placeholder svg {
+          opacity: 0.6;
+          width: 56px;
+          height: 56px;
+        }
+
+        .product-image-placeholder-text {
+          font-family: var(--font-body);
+          font-size: var(--font-size-base);
+          font-weight: 700;
+          color: #15803d;
+          letter-spacing: 0.5px;
+        }
+
+        .product-image-placeholder-hint {
+          font-family: var(--font-body);
+          font-size: var(--font-size-xs);
+          color: #166534;
+          opacity: 0.7;
+          text-align: center;
+          max-width: 200px;
+          line-height: 1.4;
         }
 
         .product-detail-title {

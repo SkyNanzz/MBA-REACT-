@@ -158,16 +158,16 @@ const Contact: React.FC = () => {
                 </h4>
                 <div className="contact-hours-grid">
                   <div>
-                    <span className="contact-day">Senin - Jumat</span>
+                    <span className="contact-day">Senin - Minggu</span>
                     <span className="contact-time">08:00 - 17:00</span>
                   </div>
                   <div>
-                    <span className="contact-day">Sabtu</span>
-                    <span className="contact-time">08:00 - 14:00</span>
+                    <span className="contact-day"></span>
+                    <span className="contact-time"></span>
                   </div>
                   <div>
-                    <span className="contact-day">Minggu</span>
-                    <span className="contact-time">Tutup</span>
+                    <span className="contact-day"></span>
+                    <span className="contact-time"></span>
                   </div>
                 </div>
               </div>
