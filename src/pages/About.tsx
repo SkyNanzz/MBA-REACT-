@@ -82,8 +82,8 @@ const StorySection: React.FC = () => {
                     <path d="M200 50C150 100 120 150 120 200C120 250 160 280 200 280C240 280 280 250 280 200C280 150 250 100 200 50Z" fill="rgba(26,125,58,0.15)"/>
                     <path d="M200 80C165 120 140 160 140 200C140 240 170 260 200 260C230 260 260 240 260 200C260 160 235 120 200 80Z" fill="rgba(200,168,78,0.12)"/>
                     <circle cx="200" cy="170" r="60" fill="rgba(26,125,58,0.1)"/>
-                    <text x="200" y="180" textAnchor="middle" fill="var(--color-primary)" fontSize="16" fontFamily="Playfair Display, serif" fontWeight="600">2008</text>
-                    <text x="200" y="220" textAnchor="middle" fill="var(--color-text-light)" fontSize="11" fontFamily="Inter, sans-serif">Sejak 2008</text>
+                    <text x="200" y="180" textAnchor="middle" fill="var(--color-primary)" fontSize="16" fontFamily="Playfair Display, serif" fontWeight="600">2014</text>
+                    <text x="200" y="220" textAnchor="middle" fill="var(--color-text-light)" fontSize="11" fontFamily="Inter, sans-serif">Sejak 2014</text>
                   </svg>
                 </div>
               </div>
