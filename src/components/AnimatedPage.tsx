@@ -37,6 +37,13 @@ function getNavDirection(from: string, to: string): NavDirection {
   return 'none';
 }
 
+/* Module-level flag that persists across component (un)mounts.
+   Only the very first app load skips the initial animation to prevent
+   the mobile flash where content appears briefly, then disappears (opacity: 0)
+   before the framer-motion spring animates it back to opacity: 1.
+   Subsequent navigations via route changes get full page transitions. */
+let didInitialAppRender = false;
+
 const AnimatedPage: React.FC<AnimatedPageProps> = ({ children, className }) => {
   const prefersReducedMotion = useReducedMotion();
   const location = useLocation();
@@ -87,11 +94,18 @@ const AnimatedPage: React.FC<AnimatedPageProps> = ({ children, className }) => {
     return <div className={className}>{children}</div>;
   }
 
+  // On very first app load only: skip initial opacity:0 to avoid flash on mobile.
+  // All subsequent mounts (route changes) get the full page transition.
+  const skipInitialAnimation = !didInitialAppRender;
+  if (skipInitialAnimation) {
+    didInitialAppRender = true;
+  }
+
   return (
     <motion.div
       className={className}
       variants={pageVariants}
-      initial="initial"
+      initial={skipInitialAnimation ? false : 'initial'}
       animate="animate"
       exit="exit"
       style={{ willChange: 'transform, opacity, filter' }}
