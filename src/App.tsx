@@ -34,7 +34,7 @@ const AppContent: React.FC = () => {
   return (
     <>
       <ScrollToTopOnNavigate />
-      <div className="app">
+      <div className="app noise-overlay">
         <Navbar />
         <main className="main-content">
           <Suspense fallback={<LoadingSpinner text="Memuat halaman..." />}>

@@ -4,8 +4,8 @@ import { FaLeaf, FaIndustry, FaUsers, FaCertificate, FaTruck, FaStar, FaArrowRig
 import Button from '../components/Button';
 import SectionTitle from '../components/SectionTitle';
 import Card, { CardImage, CardBody } from '../components/Card';
+import ScrollReveal, { StaggerContainer } from '../components/ScrollReveal';
 import { products, statistics, advantages } from '../data/companyData';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 const HeroSection: React.FC = () => {
   return (
@@ -14,9 +14,8 @@ const HeroSection: React.FC = () => {
         <div className="hero-overlay" />
         <div className="hero-pattern" />
       </div>
-      <div className="hero-content">
-        <div className="hero-text">
-          <span className="hero-badge fade-in visible">Essential Oil Asli Buton</span>
+      <div className="hero-content">          <div className="hero-text">
+          <span className="eyebrow fade-in visible">★ Essential Oil Asli Buton</span>
           <h1 className="hero-title fade-in visible">
             MBA <span className="text-gold">Mandiri</span> Buton Atsiri
           </h1>
@@ -92,22 +91,6 @@ const HeroSection: React.FC = () => {
           grid-template-columns: 1fr;
           gap: var(--space-12);
           align-items: center;
-        }
-
-        .hero-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: var(--space-2);
-          padding: var(--space-2) var(--space-4);
-          background: rgba(200, 168, 78, 0.15);
-          border: 1px solid rgba(200, 168, 78, 0.3);
-          border-radius: var(--radius-full);
-          font-size: var(--font-size-xs);
-          font-weight: 600;
-          color: var(--color-gold-light);
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          margin-bottom: var(--space-6);
         }
 
         .hero-title {
@@ -218,8 +201,6 @@ const HeroSection: React.FC = () => {
 };
 
 const AdvantagesSection: React.FC = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
-
   return (
     <section className="section section-alt" id="keunggulan">
       <div className="container">
@@ -228,9 +209,10 @@ const AdvantagesSection: React.FC = () => {
           title="Mengapa Memilih MBA?"
           description="Kami berkomitmen memberikan yang terbaik melalui kualitas produk, inovasi teknologi, dan pemberdayaan petani lokal."
         />
-        <div ref={ref} className="grid grid-3 stagger-children">
+        <StaggerContainer staggerDelay={100} threshold={0.05} className="grid grid-3">
           {advantages.map((adv, index) => (
-            <div key={index} className={`advantage-card fade-in ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: `${index * 100}ms` }}>
+            <div key={index} className="doppelrand">
+              <div className="doppelrand-inner advantage-card">
               <div className="advantage-icon">
                 {index === 0 && <FaLeaf />}
                 {index === 1 && <FaIndustry />}
@@ -241,26 +223,16 @@ const AdvantagesSection: React.FC = () => {
               </div>
               <h3 className="advantage-title">{adv.title}</h3>
               <p className="advantage-desc">{adv.description}</p>
+              </div>
             </div>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
 
       <style>{`
         .advantage-card {
-          background: var(--color-white);
           padding: var(--space-8);
-          border-radius: var(--radius-xl);
           text-align: center;
-          box-shadow: var(--shadow-sm);
-          transition: all var(--transition-base);
-          border: 1px solid var(--color-border);
-        }
-
-        .advantage-card:hover {
-          transform: translateY(-6px);
-          box-shadow: var(--shadow-lg);
-          border-color: var(--color-primary);
         }
 
         .advantage-icon {
@@ -274,13 +246,20 @@ const AdvantagesSection: React.FC = () => {
           margin: 0 auto var(--space-5);
           font-size: var(--font-size-2xl);
           color: var(--color-primary);
-          transition: all var(--transition-base);
+          position: relative;
+          will-change: transform;
+          transition:
+            transform var(--transition-base),
+            background var(--transition-base),
+            color var(--transition-base),
+            box-shadow var(--transition-base);
         }
 
         .advantage-card:hover .advantage-icon {
           background: var(--color-primary);
           color: var(--color-white);
-          transform: scale(1.1);
+          transform: scale(1.1) rotate(-4deg);
+          box-shadow: 0 4px 15px rgba(21, 128, 61, 0.3);
         }
 
         .advantage-title {
@@ -302,7 +281,6 @@ const AdvantagesSection: React.FC = () => {
 };
 
 const FeaturedProductsSection: React.FC = () => {
-  const { ref } = useIntersectionObserver({ threshold: 0.1 });
   const featuredProducts = products.slice(0, 3);
 
   return (
@@ -313,9 +291,9 @@ const FeaturedProductsSection: React.FC = () => {
           title="Essential Oil Premium Kami"
           description="Kami memproduksi berbagai jenis minyak atsiri berkualitas dengan kadar senyawa aktif yang optimal untuk kebutuhan Anda."
         />
-        <div ref={ref} className="grid grid-3 stagger-children">
+        <StaggerContainer staggerDelay={120} threshold={0.05} className="grid grid-3">
           {featuredProducts.map((product, index) => (
-            <Card key={product.id} delay={index * 100}>
+            <Card key={product.id}>
               <CardImage src={product.image} alt={product.name} badge={product.comingSoon ? 'Coming Soon' : undefined} />
               <CardBody>
                 <h3 className="card-title">{product.name}</h3>
@@ -326,12 +304,12 @@ const FeaturedProductsSection: React.FC = () => {
               </CardBody>
             </Card>
           ))}
-        </div>
-        <div className="text-center mt-12 fade-in ${isVisible ? 'visible' : ''}">
+        </StaggerContainer>
+        <ScrollReveal direction="up" delay={0.2} className="text-center mt-12">
           <Button variant="outline" size="lg" href="/produk">
             Lihat Semua Produk <FaArrowRight />
           </Button>
-        </div>
+        </ScrollReveal>
       </div>
 
       <style>{`
@@ -343,11 +321,43 @@ const FeaturedProductsSection: React.FC = () => {
           font-weight: 600;
           font-size: var(--font-size-sm);
           text-decoration: none;
-          transition: gap var(--transition-fast);
+          position: relative;
+          padding-bottom: 2px;
+          transition: color var(--transition-fast), gap var(--transition-fast);
         }
+
+        /* Underline slide-in animation */
+        .product-link::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 1.5px;
+          background: var(--color-gold);
+          transform: scaleX(0);
+          transform-origin: right;
+          transition: transform var(--transition-base);
+        }
+
+        .product-link:hover::after {
+          transform: scaleX(1);
+          transform-origin: left;
+        }
+
         .product-link:hover {
           gap: var(--space-3);
           color: var(--color-primary-dark);
+        }
+
+        /* Arrow icon animate right */
+        .product-link svg {
+          transition: transform var(--transition-fast);
+          font-size: 0.75em;
+        }
+
+        .product-link:hover svg {
+          transform: translateX(4px);
         }
       `}</style>
     </section>
@@ -355,15 +365,13 @@ const FeaturedProductsSection: React.FC = () => {
 };
 
 const StatsSection: React.FC = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.3 });
-
   return (
     <section className="stats-section" id="statistik">
       <div className="stats-bg" aria-hidden="true" />
       <div className="container">
-        <div ref={ref} className="stats-grid">
+        <StaggerContainer staggerDelay={80} direction="scale" threshold={0.2} className="stats-grid">
           {statistics.map((stat) => (
-            <div key={stat.id} className={`stat-item fade-in-scale ${isVisible ? 'visible' : ''}`}>
+            <div key={stat.id} className="stat-item">
               <div className="stat-icon-wrapper">
                 <div className="stat-icon">
                   {stat.id === 's1' && <FaLeaf />}
@@ -376,7 +384,7 @@ const StatsSection: React.FC = () => {
               <div className="stat-label">{stat.label}</div>
             </div>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
 
       <style>{`
@@ -407,15 +415,34 @@ const StatsSection: React.FC = () => {
           background: rgba(255, 255, 255, 0.08);
           backdrop-filter: blur(10px);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          transition: all var(--transition-base);
           cursor: default;
+          will-change: transform;
+          /* Hanya properti yang berubah — shadow di-handle terpisah */
+          transition:
+            transform var(--transition-base),
+            background var(--transition-base),
+            border-color var(--transition-base);
+        }
+
+        /* Stagger delay on hover — each item responds with a cascading delay */
+        .stat-item:nth-child(1) { --stagger: 0; }
+        .stat-item:nth-child(2) { --stagger: 1; }
+        .stat-item:nth-child(3) { --stagger: 2; }
+        .stat-item:nth-child(4) { --stagger: 3; }
+
+        .stat-item {
+          transition-delay: calc(var(--stagger) * 60ms);
         }
 
         .stat-item:hover {
           transform: translateY(-6px);
           background: rgba(255, 255, 255, 0.12);
           border-color: rgba(200, 168, 78, 0.3);
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+          transition-delay: 0ms;
+        }
+
+        .stat-item:not(:hover) {
+          transition-delay: calc((3 - var(--stagger)) * 60ms);
         }
 
         .stat-icon-wrapper {
@@ -424,7 +451,10 @@ const StatsSection: React.FC = () => {
           border-radius: var(--radius-lg);
           background: rgba(200, 168, 78, 0.15);
           margin-bottom: var(--space-4);
-          transition: all var(--transition-base);
+          will-change: transform;
+          transition:
+            transform var(--transition-base),
+            background var(--transition-base);
         }
 
         .stat-item:hover .stat-icon-wrapper {
@@ -436,6 +466,7 @@ const StatsSection: React.FC = () => {
           font-size: var(--font-size-2xl);
           color: var(--color-gold);
           transition: transform var(--transition-base);
+          will-change: transform;
         }
 
         .stat-item:hover .stat-icon {
@@ -482,13 +513,12 @@ const StatsSection: React.FC = () => {
 };
 
 const CTASection: React.FC = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.2 });
-
   return (
     <section className="cta-section" id="cta">
       <div className="cta-bg" aria-hidden="true" />
       <div className="container">
-        <div ref={ref} className={`cta-content fade-in-scale ${isVisible ? 'visible' : ''}`}>
+        <ScrollReveal direction="scale" delay={0.15}>
+          <div className="cta-content">
           <h2 className="cta-title">Siap Bermitra dengan Kami?</h2>
           <p className="cta-description">
             Hubungi tim kami untuk informasi lebih lanjut tentang produk, kerjasama distribusi, 
@@ -503,6 +533,7 @@ const CTASection: React.FC = () => {
             </Button>
           </div>
         </div>
+        </ScrollReveal>
       </div>
 
       <style>{`

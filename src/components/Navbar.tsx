@@ -1,10 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { IoMenu, IoClose } from 'react-icons/io5';
 import { navLinks } from '../data/companyData';
 import { useScrollPosition } from '../hooks/useIntersectionObserver';
 import { useTheme } from '../hooks/useTheme';
 import ThemeToggle from './ThemeToggle';
+
+/* ===================== FLUID ISLAND NAV ===================== */
+/* Per high-end-visual-design §5A:
+   - Floating glass pill detached from top on hero
+   - Hamburger morph: lines rotate to form X
+   - Staggered mask reveal: links slide up with delay
+   - Full-screen glass overlay menu
+*/
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +19,8 @@ const Navbar: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  // On homepage, show floating island when not scrolled; on other pages always solid
+  const showIsland = isHomePage && !isScrolled;
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
@@ -33,14 +42,11 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
-  const navbarClass = `
-    navbar
-    ${isScrolled || !isHomePage ? 'navbar-solid' : 'navbar-transparent'}
-    ${isMenuOpen ? 'navbar-menu-open' : ''}
-  `;
-
   return (
-    <header className={navbarClass} role="banner">
+    <header
+      className={`navbar ${showIsland ? 'navbar-island' : 'navbar-solid'} ${isMenuOpen ? 'navbar-menu-open' : ''}`}
+      role="banner"
+    >
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" aria-label="MBA Mandiri Buton Atsiri - Beranda">
           <span className="navbar-logo-icon">
@@ -58,20 +64,23 @@ const Navbar: React.FC = () => {
 
         <div className="navbar-actions">
           <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
+          {/* Hamburger Morph: 3 lines that become X on open */}
           <button
-            className="navbar-toggle"
+            className={`navbar-hamburger ${isMenuOpen ? 'hamburger-open' : ''}`}
             onClick={toggleMenu}
             aria-label={isMenuOpen ? 'Tutup menu' : 'Buka menu'}
             aria-expanded={isMenuOpen}
           >
-            {isMenuOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
+            <span className="hamburger-line hamburger-line-top" />
+            <span className="hamburger-line hamburger-line-mid" />
+            <span className="hamburger-line hamburger-line-bot" />
           </button>
         </div>
 
         <nav className={`navbar-nav ${isMenuOpen ? 'navbar-nav-open' : ''}`} role="navigation" aria-label="Navigasi utama">
           <ul className="navbar-nav-list">
-            {navLinks.map((link) => (
-              <li key={link.path}>
+            {navLinks.map((link, i) => (
+              <li key={link.path} className={`nav-item ${isMenuOpen ? 'nav-item-reveal' : ''}`} style={{ '--nav-index': i } as React.CSSProperties}>
                 <Link
                   to={link.path}
                   className={`navbar-nav-link ${location.pathname === link.path ? 'navbar-nav-link-active' : ''}`}
@@ -82,8 +91,8 @@ const Navbar: React.FC = () => {
               </li>
             ))}
           </ul>
-          <div className="navbar-nav-cta">
-            <Link to="/kontak" className="btn btn-gold btn-sm" onClick={closeMenu}>
+          <div className={`navbar-nav-cta ${isMenuOpen ? 'nav-item-reveal' : ''}`} style={{ '--nav-index': navLinks.length } as React.CSSProperties}>
+            <Link to="/kontak" className="navbar-cta-link" onClick={closeMenu}>
               Hubungi Kami
             </Link>
           </div>
@@ -99,33 +108,63 @@ const Navbar: React.FC = () => {
       </div>
 
       <style>{`
+        /* ===================== BASE ===================== */
         .navbar {
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
           z-index: var(--z-navbar);
-          transition: all var(--transition-base);
+          transition: padding var(--transition-base), background var(--transition-base), backdrop-filter var(--transition-base), box-shadow var(--transition-base);
           padding: var(--space-4) 0;
         }
 
-        .navbar-transparent {
+        /* ===================== FLUID ISLAND MODE (hero/default) ===================== */
+        .navbar-island {
           background: transparent;
+          padding: var(--space-6) 0 0;
         }
 
+        .navbar-island .navbar-container {
+          max-width: 820px;
+          margin: 0 auto;
+          padding: var(--space-2) var(--space-3);
+          background: rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: var(--radius-full);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+          transition: all var(--transition-base);
+        }
+
+        .navbar-island .navbar-logo-text { color: var(--color-white); }
+        .navbar-island .navbar-actions { color: var(--color-white); }
+        .navbar-island .navbar-nav-link { color: rgba(255, 255, 255, 0.85); }
+        .navbar-island .navbar-nav-link:hover { color: var(--color-white); background: rgba(255, 255, 255, 0.1); }
+        .navbar-island .navbar-nav-link-active { color: var(--color-white); font-weight: 600; }
+
+        /* ===================== SOLID MODE (scrolled / inner pages) ===================== */
         .navbar-solid {
-          background: rgba(255, 255, 255, 0.95);
+          background: rgba(255, 255, 255, 0.92);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-          padding: var(--space-3) 0;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+          padding: var(--space-2) 0;
         }
 
         [data-theme="dark"] .navbar-solid {
-          background: rgba(6, 14, 9, 0.95);
+          background: rgba(6, 14, 9, 0.92);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
+        .navbar-solid .navbar-logo-text { color: var(--color-heading); }
+        .navbar-solid .navbar-actions { color: var(--color-heading); }
+        .navbar-solid .navbar-nav-link { color: var(--color-text); }
+        .navbar-solid .navbar-nav-link:hover { color: var(--color-primary); background: var(--color-primary-bg); }
+        .navbar-solid .navbar-nav-link-active { color: var(--color-primary); font-weight: 600; }
+
+        /* ===================== LAYOUT ===================== */
         .navbar-container {
           max-width: var(--container-max);
           margin: 0 auto;
@@ -142,14 +181,6 @@ const Navbar: React.FC = () => {
           text-decoration: none;
           z-index: calc(var(--z-navbar) + 1);
           color: inherit;
-        }
-
-        .navbar-transparent .navbar-logo-text {
-          color: var(--color-white);
-        }
-
-        .navbar-solid .navbar-logo-text {
-          color: var(--color-heading);
         }
 
         .navbar-logo-title {
@@ -174,14 +205,6 @@ const Navbar: React.FC = () => {
           z-index: calc(var(--z-navbar) + 1);
         }
 
-        .navbar-transparent .navbar-actions {
-          color: var(--color-white);
-        }
-
-        .navbar-solid .navbar-actions {
-          color: var(--color-heading);
-        }
-
         .navbar-nav {
           display: flex;
           align-items: center;
@@ -200,47 +223,13 @@ const Navbar: React.FC = () => {
           font-size: var(--font-size-sm);
           font-weight: 500;
           border-radius: var(--radius-md);
-          transition: all var(--transition-fast);
           text-decoration: none;
           letter-spacing: 0.3px;
-        }
-
-        .navbar-transparent .navbar-nav-link {
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .navbar-solid .navbar-nav-link {
-          color: var(--color-text);
-        }
-
-        .navbar-nav-link:hover {
-          opacity: 1;
-          transform: translateY(-1px);
-        }
-
-        .navbar-transparent .navbar-nav-link:hover {
-          color: var(--color-white);
-          background: rgba(255, 255, 255, 0.15);
-        }
-
-        .navbar-solid .navbar-nav-link:hover {
-          color: var(--color-primary);
-          background: var(--color-primary-bg);
-        }
-
-        .navbar-nav-link-active {
           position: relative;
+          transition: color var(--transition-fast), background var(--transition-fast);
         }
 
-        .navbar-transparent .navbar-nav-link-active {
-          color: var(--color-white);
-        }
-
-        .navbar-solid .navbar-nav-link-active {
-          color: var(--color-primary);
-          font-weight: 600;
-        }
-
+        /* Active link underline */
         .navbar-nav-link-active::after {
           content: '';
           position: absolute;
@@ -261,80 +250,118 @@ const Navbar: React.FC = () => {
           left: var(--space-3);
           right: var(--space-3);
           height: 2px;
-          background: var(--color-gold);
+          background: linear-gradient(90deg, var(--color-gold), var(--color-primary));
           border-radius: var(--radius-full);
           transform: scaleX(0);
-          transition: transform var(--transition-fast);
+          transition: transform var(--transition-base);
         }
 
         .navbar-nav-link:not(.navbar-nav-link-active):hover::after {
           transform: scaleX(1);
         }
 
-        .navbar-nav-link {
-          position: relative;
-        }
+        .navbar-nav-cta { display: none; }
 
-        .navbar-nav-cta {
+        /* ===================== HAMBURGER MORPH ===================== */
+        .navbar-hamburger {
           display: none;
-        }
-
-        .navbar-toggle {
-          display: none;
-          z-index: calc(var(--z-navbar) + 1);
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: var(--space-2);
-          color: inherit;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
           width: 44px;
           height: 44px;
-          align-items: center;
-          justify-content: center;
+          padding: 0;
+          border: none;
+          background: none;
+          cursor: pointer;
+          z-index: calc(var(--z-navbar) + 1);
+          color: inherit;
         }
 
-        .navbar-transparent .navbar-toggle {
-          color: var(--color-white);
+        .hamburger-line {
+          display: block;
+          width: 20px;
+          height: 2px;
+          background: currentColor;
+          border-radius: var(--radius-full);
+          transition: all 350ms var(--ease-out-expo);
+          transform-origin: center;
         }
 
-        .navbar-solid .navbar-toggle {
-          color: var(--color-heading);
+        .hamburger-open .hamburger-line-top {
+          transform: translateY(7px) rotate(45deg);
         }
 
-        .navbar-overlay {
-          display: none;
+        .hamburger-open .hamburger-line-mid {
+          transform: scaleX(0);
+          opacity: 0;
         }
 
+        .hamburger-open .hamburger-line-bot {
+          transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ===================== OVERLAY ===================== */
+        .navbar-overlay { display: none; }
+
+        /* ===================== MOBILE ===================== */
         @media (max-width: 768px) {
+          .navbar-island {
+            padding: var(--space-4) 0 0;
+          }
+
+          .navbar-island .navbar-container {
+            max-width: calc(100% - var(--space-8));
+            margin: 0 auto;
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-full);
+          }
+
+          .navbar-hamburger { display: flex; }
+
           .navbar-nav {
             position: fixed;
             top: 0;
-            right: -100%;
-            width: 280px;
-            height: 100vh;
-            background: var(--color-white);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100dvh;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
             flex-direction: column;
-            padding: var(--space-24) var(--space-6) var(--space-6);
-            transition: right var(--transition-base);
-            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-24) var(--space-8) var(--space-8);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-base), visibility var(--transition-base);
             z-index: var(--z-navbar);
-            gap: var(--space-6);
-            align-items: stretch;
+            gap: var(--space-8);
+          }
+
+          [data-theme="dark"] .navbar-nav {
+            background: rgba(6, 14, 9, 0.96);
+            backdrop-filter: blur(40px);
           }
 
           .navbar-nav-open {
-            right: 0;
+            opacity: 1;
+            visibility: visible;
           }
 
           .navbar-nav-list {
             flex-direction: column;
-            gap: var(--space-1);
+            gap: var(--space-2);
+            text-align: center;
           }
 
           .navbar-nav-link {
             display: block;
-            padding: var(--space-3) var(--space-4);
-            font-size: var(--font-size-base);
+            padding: var(--space-3) var(--space-6);
+            font-size: var(--font-size-2xl);
             color: var(--color-text) !important;
             border-radius: var(--radius-md);
           }
@@ -344,46 +371,69 @@ const Navbar: React.FC = () => {
             color: var(--color-primary) !important;
           }
 
-          .navbar-nav-link-active::after {
-            display: none;
-          }
+          .navbar-nav-link-active::after { display: none; }
+          .navbar-nav-link:not(.navbar-nav-link-active)::after { display: none; }
 
           .navbar-nav-cta {
             display: block;
             margin-top: var(--space-4);
           }
 
-          .navbar-nav-cta .btn {
-            width: 100%;
-            text-align: center;
+          .navbar-cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-8);
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+            color: var(--color-white);
+            font-weight: 600;
+            font-size: var(--font-size-base);
+            text-decoration: none;
+            box-shadow: var(--shadow-gold);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
           }
 
-          .navbar-toggle {
-            display: flex;
+          .navbar-cta-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 168, 78, 0.4);
           }
 
           .navbar-overlay {
             display: block;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.3);
             z-index: calc(var(--z-navbar) - 1);
+          }
+
+          /* Staggered mask reveal for mobile menu items */
+          .nav-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 500ms var(--ease-out-expo), transform 500ms var(--ease-out-expo);
+            transition-delay: calc(var(--nav-index, 0) * 80ms);
+          }
+
+          .nav-item-reveal {
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          .navbar-nav-cta.nav-item-reveal {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 500ms var(--ease-out-expo) 400ms, transform 500ms var(--ease-out-expo) 400ms;
           }
         }
 
         @media (min-width: 769px) {
-          .navbar-nav-cta {
-            display: flex;
-          }
+          .navbar-nav-cta { display: flex; }
         }
 
         @media (max-width: 640px) {
-          .navbar-logo-title {
-            font-size: var(--font-size-lg);
-          }
-          .navbar-logo-subtitle {
-            font-size: 0.625rem;
-          }
+          .navbar-logo-title { font-size: var(--font-size-lg); }
+          .navbar-logo-subtitle { font-size: 0.625rem; }
         }
       `}</style>
     </header>

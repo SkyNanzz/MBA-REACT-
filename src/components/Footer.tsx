@@ -189,7 +189,11 @@ const Footer: React.FC = () => {
           justify-content: center;
           color: rgba(255, 255, 255, 0.7);
           font-size: var(--font-size-base);
-          transition: all var(--transition-fast);
+          will-change: transform;
+          transition:
+            transform var(--transition-fast),
+            background var(--transition-fast),
+            color var(--transition-fast);
         }
 
         .footer-social-link:hover {
@@ -230,8 +234,10 @@ const Footer: React.FC = () => {
           color: rgba(255, 255, 255, 0.6);
           font-size: var(--font-size-sm);
           text-decoration: none;
-          transition: all var(--transition-fast);
           display: inline-block;
+          transition:
+            color var(--transition-fast),
+            transform var(--transition-fast);
         }
 
         .footer-link:hover {

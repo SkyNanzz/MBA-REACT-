@@ -1,5 +1,13 @@
 import React from 'react';
-import { motion, type Variants } from 'framer-motion';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+
+/* ===================== PREMIUM PAGE TRANSITION ===================== */
+/* Per design-motion-principles (Jakub Krehel):
+   - Enter: opacity + translateY + blur for a "materializing" effect
+   - Spring animation with bounce:0 for professional polish
+   - Exit: subtler than enter (smaller translate, same blur)
+   - Accessibility: useReducedMotion() disables animation when user prefers reduced motion
+*/
 
 interface AnimatedPageProps {
   children: React.ReactNode;
@@ -9,37 +17,46 @@ interface AnimatedPageProps {
 const pageVariants: Variants = {
   initial: {
     opacity: 0,
-    y: 24,
-    scale: 0.98,
+    y: 20,
+    filter: 'blur(6px)',
   },
   animate: {
     opacity: 1,
     y: 0,
-    scale: 1,
+    filter: 'blur(0px)',
     transition: {
-      duration: 0.4,
-      ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
-      opacity: { duration: 0.35 },
-      y: { duration: 0.4 },
-      scale: { duration: 0.35 },
+      type: 'spring',
+      stiffness: 100,
+      damping: 25,
+      mass: 0.5,
     },
   },
   exit: {
     opacity: 0,
-    y: -12,
-    scale: 0.97,
+    y: -10,
+    filter: 'blur(4px)',
     transition: {
-      duration: 0.2,
-      ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
+      type: 'spring',
+      stiffness: 150,
+      damping: 22,
+      mass: 0.4,
     },
   },
 };
 
+const staticVariants: Variants = {
+  initial: { opacity: 1 },
+  animate: { opacity: 1 },
+  exit: { opacity: 1 },
+};
+
 const AnimatedPage: React.FC<AnimatedPageProps> = ({ children, className }) => {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
-      variants={pageVariants}
+      variants={prefersReducedMotion ? staticVariants : pageVariants}
       initial="initial"
       animate="animate"
       exit="exit"

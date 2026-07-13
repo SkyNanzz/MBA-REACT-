@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaLeaf, FaAward, FaHandshake, FaFlask, FaCheckCircle, FaArrowRight, FaBullseye, FaEye } from 'react-icons/fa';
 import SectionTitle from '../components/SectionTitle';
 import Button from '../components/Button';
+import ScrollReveal, { StaggerContainer } from '../components/ScrollReveal';
 import { companyValues, teamMembers } from '../data/companyData';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
@@ -126,13 +127,12 @@ const StorySection: React.FC = () => {
 };
 
 const VisionMissionSection: React.FC = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
-
   return (
     <section className="section section-primary-bg">
       <div className="container">
-        <div ref={ref} className="vm-grid">
-          <div className={`vm-card fade-in ${isVisible ? 'visible' : ''}`}>
+        <StaggerContainer staggerDelay={120} direction="up" threshold={0.1} className="vm-grid">
+          <div className="doppelrand">
+            <div className="doppelrand-inner vm-card">
             <div className="vm-icon">
               <FaEye />
             </div>
@@ -142,8 +142,10 @@ const VisionMissionSection: React.FC = () => {
               di Indonesia atas kualitas terbaik, inovasi berkelanjutan, dan kontribusi nyata dalam 
               pemberdayaan petani lokal serta kelestarian lingkungan.
             </p>
+            </div>
           </div>
-          <div className={`vm-card fade-in ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: '150ms' }}>
+          <div className="doppelrand">
+            <div className="doppelrand-inner vm-card">
             <div className="vm-icon">
               <FaBullseye />
             </div>
@@ -170,8 +172,9 @@ const VisionMissionSection: React.FC = () => {
                 <span>Memberikan pelayanan terbaik kepada mitra bisnis di seluruh Indonesia</span>
               </li>
             </ul>
+            </div>
           </div>
-        </div>
+        </StaggerContainer>
       </div>
 
       <style>{`
@@ -182,18 +185,7 @@ const VisionMissionSection: React.FC = () => {
         }
 
         .vm-card {
-          background: var(--color-white);
           padding: var(--space-10);
-          border-radius: var(--radius-xl);
-          box-shadow: var(--shadow-sm);
-          border: 1px solid var(--color-border);
-          transition: all var(--transition-base);
-        }
-
-        .vm-card:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-lg);
-          border-color: var(--color-primary);
         }
 
         .vm-icon {
@@ -207,13 +199,19 @@ const VisionMissionSection: React.FC = () => {
           font-size: var(--font-size-2xl);
           color: var(--color-primary);
           margin-bottom: var(--space-5);
-          transition: all var(--transition-base);
+          will-change: transform;
+          transition:
+            transform var(--transition-base),
+            background var(--transition-base),
+            color var(--transition-base),
+            box-shadow var(--transition-base);
         }
 
         .vm-card:hover .vm-icon {
           background: var(--color-primary);
           color: var(--color-white);
           transform: scale(1.1) rotate(-5deg);
+          box-shadow: 0 4px 15px rgba(21, 128, 61, 0.3);
         }
 
         .vm-title {
@@ -262,7 +260,6 @@ const VisionMissionSection: React.FC = () => {
 
 const ValuesSection: React.FC = () => {
   const valueIcons = [FaLeaf, FaAward, FaHandshake, FaFlask];
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   return (
     <section className="section">
@@ -272,36 +269,28 @@ const ValuesSection: React.FC = () => {
           title="Prinsip yang Kami Pegang"
           description="Nilai-nilai ini menjadi landasan dalam setiap langkah dan keputusan kami."
         />
-        <div ref={ref} className="grid grid-4 stagger-children">
+        <StaggerContainer staggerDelay={100} direction="up" threshold={0.05} className="grid grid-4">
           {companyValues.map((value, index) => {
             const Icon = valueIcons[index];
             return (
-              <div key={index} className={`value-card fade-in ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: `${index * 100}ms` }}>
+              <div key={index} className="doppelrand">
+                <div className="doppelrand-inner value-card">
                 <div className="value-icon">
                   <Icon />
                 </div>
                 <h3 className="value-title">{value.title}</h3>
                 <p className="value-desc">{value.description}</p>
+                </div>
               </div>
             );
           })}
-        </div>
+        </StaggerContainer>
       </div>
 
       <style>{`
         .value-card {
           text-align: center;
           padding: var(--space-8) var(--space-6);
-          background: var(--color-white);
-          border-radius: var(--radius-xl);
-          border: 1px solid var(--color-border);
-          transition: all var(--transition-base);
-        }
-
-        .value-card:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-md);
-          border-color: var(--color-primary);
         }
 
         .value-icon {
@@ -315,13 +304,19 @@ const ValuesSection: React.FC = () => {
           margin: 0 auto var(--space-5);
           font-size: var(--font-size-2xl);
           color: var(--color-primary);
-          transition: all var(--transition-base);
+          will-change: transform;
+          transition:
+            transform var(--transition-base),
+            background var(--transition-base),
+            color var(--transition-base),
+            box-shadow var(--transition-base);
         }
 
         .value-card:hover .value-icon {
           background: var(--color-primary);
           color: var(--color-white);
-          transform: scale(1.1);
+          transform: scale(1.1) rotate(-3deg);
+          box-shadow: 0 4px 15px rgba(21, 128, 61, 0.3);
         }
 
         .value-title {
@@ -342,8 +337,6 @@ const ValuesSection: React.FC = () => {
 };
 
 const TeamSection: React.FC = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
-
   return (
     <section className="section">
       <div className="container">
@@ -352,33 +345,26 @@ const TeamSection: React.FC = () => {
           title="Kepemimpinan Perusahaan"
           description="Tim profesional yang berdedikasi dalam mengelola dan mengembangkan perusahaan."
         />
-        <div ref={ref} className="grid grid-3 stagger-children">
+        <StaggerContainer staggerDelay={100} direction="up" threshold={0.05} className="grid grid-3">
           {teamMembers.map((member, index) => (
-            <div key={member.id} className={`team-card fade-in ${isVisible ? 'visible' : ''}`} style={{ transitionDelay: `${index * 100}ms` }}>
+            <div key={member.id} className="doppelrand">
+              <div className="doppelrand-inner team-card">
               <div className="team-avatar-wrapper">
                 <img src={member.avatar} alt={member.name} className="team-avatar" loading="lazy" />
               </div>
               <h3 className="team-name">{member.name}</h3>
               <div className="team-position">{member.position}</div>
               <p className="team-desc">{member.description}</p>
+              </div>
             </div>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
 
       <style>{`
         .team-card {
           text-align: center;
           padding: var(--space-8) var(--space-6);
-          background: var(--color-white);
-          border-radius: var(--radius-xl);
-          border: 1px solid var(--color-border);
-          transition: all var(--transition-base);
-        }
-
-        .team-card:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-lg);
         }
 
         .team-avatar-wrapper {
@@ -423,13 +409,12 @@ const TeamSection: React.FC = () => {
 };
 
 const CTASection: React.FC = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.2 });
-
   return (
     <section className="cta-section" id="cta">
       <div className="cta-bg" aria-hidden="true" />
       <div className="container">
-        <div ref={ref} className={`cta-content fade-in-scale ${isVisible ? 'visible' : ''}`}>
+        <ScrollReveal direction="scale" delay={0.15}>
+          <div className="cta-content">
           <h2 className="cta-title">Ingin Tahu Lebih Lanjut?</h2>
           <p className="cta-description">
             Kami siap menjawab pertanyaan Anda tentang produk, kerjasama, atau kebutuhan essential oil khusus.
@@ -440,6 +425,7 @@ const CTASection: React.FC = () => {
             </Button>
           </div>
         </div>
+        </ScrollReveal>
       </div>
 
       <style>{`

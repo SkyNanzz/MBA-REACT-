@@ -183,14 +183,21 @@ const Products: React.FC = () => {
           font-weight: 500;
           color: var(--color-text);
           cursor: pointer;
-          transition: all var(--transition-fast);
+          position: relative;
+          overflow: hidden;
+          will-change: transform;
+          transition:
+            transform var(--transition-fast),
+            border-color var(--transition-fast),
+            color var(--transition-fast),
+            background var(--transition-fast);
         }
 
         .product-filter-btn:hover {
-          border-color: var(--color-primary);
+          border-color: var(--color-gold);
           color: var(--color-primary);
           transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(26, 125, 58, 0.15);
+          box-shadow: var(--shadow-gold);
         }
 
         .product-filter-btn:active {
@@ -198,14 +205,15 @@ const Products: React.FC = () => {
         }
 
         .product-filter-btn.active {
-          background: var(--color-primary);
+          background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
           border-color: var(--color-primary);
           color: var(--color-white);
+          box-shadow: var(--shadow-green);
         }
 
         .product-filter-btn.active:hover {
           transform: translateY(-2px);
-          box-shadow: 0 4px 16px rgba(26, 125, 58, 0.3);
+          box-shadow: 0 6px 20px rgba(26, 125, 58, 0.35);
         }
 
         .product-detail {

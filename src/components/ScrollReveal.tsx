@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useInView, type Variants } from 'framer-motion';
+import { motion, useInView, useReducedMotion, type Variants } from 'framer-motion';
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -15,16 +15,18 @@ interface ScrollRevealProps {
   damping?: number;
 }
 
+/* Per Jakub Krehel's enter recipe: opacity + translateY + blur for materializing effect.
+   Spring with bounce:0 for professional polish. Blur adds a "coming into focus" feel. */
 const directionVariants = (
   direction: ScrollRevealProps['direction'],
   distance: number
 ): Variants => {
   const offsets: Record<string, { x?: number; y?: number; scale?: number; filter?: string }> = {
-    up: { y: distance },
-    down: { y: -distance },
-    left: { x: distance },
-    right: { x: -distance },
-    scale: { scale: 0.85 },
+    up: { y: distance, filter: 'blur(4px)' },
+    down: { y: -distance, filter: 'blur(4px)' },
+    left: { x: distance, filter: 'blur(4px)' },
+    right: { x: -distance, filter: 'blur(4px)' },
+    scale: { scale: 0.85, filter: 'blur(4px)' },
     blur: { y: distance, filter: 'blur(6px)' },
   };
 
@@ -63,6 +65,11 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, amount: threshold });
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
@@ -100,44 +107,56 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, amount: threshold });
+  const prefersReducedMotion = useReducedMotion();
 
+  /* Per Jakub Krehel: staggered entries with spring physics and blur for materializing feel.
+     Stagger delay creates a cascading reveal effect without needing manual delay props. */
   const childrenArray = React.Children.toArray(children);
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <div ref={ref} className={className}>
-      {childrenArray.map((child, index) => (
-        <motion.div
-          key={index}
-          initial={{
-            opacity: 0,
-            y: direction === 'up' || direction === 'blur' ? 30 : direction === 'down' ? -30 : 0,
-            x: direction === 'left' ? 30 : direction === 'right' ? -30 : 0,
-            scale: direction === 'scale' ? 0.9 : 1,
-            filter: direction === 'blur' ? 'blur(4px)' : 'blur(0px)',
-          }}
-          animate={
-            isInView
-              ? {
-                  opacity: 1,
-                  y: 0,
-                  x: 0,
-                  scale: 1,
-                  filter: 'blur(0px)',
-                }
-              : {}
-          }
-          transition={{
-            type: 'spring',
-            stiffness: 100,
-            damping: 22,
-            mass: 0.5,
-            delay: index * (staggerDelay / 1000),
-          }}
-          style={{ willChange: 'transform, opacity' }}
-        >
-          {child}
-        </motion.div>
-      ))}
+      {childrenArray.map((child, index) => {
+        const yOffset = direction === 'up' || direction === 'blur' ? 30 : direction === 'down' ? -30 : 0;
+        const xOffset = direction === 'left' ? 30 : direction === 'right' ? -30 : 0;
+
+        return (
+          <motion.div
+            key={index}
+            initial={{
+              opacity: 0,
+              y: yOffset,
+              x: xOffset,
+              scale: direction === 'scale' ? 0.9 : 1,
+              filter: 'blur(4px)',
+            }}
+            animate={
+              isInView
+                ? {
+                    opacity: 1,
+                    y: 0,
+                    x: 0,
+                    scale: 1,
+                    filter: 'blur(0px)',
+                  }
+                : {}
+            }
+            transition={{
+              type: 'spring',
+              stiffness: 100,
+              damping: 22,
+              mass: 0.5,
+              delay: index * (staggerDelay / 1000),
+            }}
+            style={{ willChange: 'transform, opacity, filter' }}
+          >
+            {child}
+          </motion.div>
+        );
+      })}
     </div>
   );
 };

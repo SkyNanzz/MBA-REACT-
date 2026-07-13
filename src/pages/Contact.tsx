@@ -345,7 +345,10 @@ const Contact: React.FC = () => {
           font-size: var(--font-size-lg);
           color: var(--color-primary);
           flex-shrink: 0;
-          transition: all var(--transition-base);
+          will-change: transform;
+          transition:
+            transform var(--transition-base),
+            box-shadow var(--transition-base);
         }
 
         .contact-detail-item:hover .contact-detail-icon {
@@ -434,15 +437,20 @@ const Contact: React.FC = () => {
         .contact-form-wrapper {
           background: var(--color-white);
           padding: var(--space-8);
-          border-radius: var(--radius-xl);
+          border-radius: var(--radius-2xl);
           box-shadow: var(--shadow-sm);
           border: 1px solid var(--color-border);
-          transition: all var(--transition-base);
+          transition:
+            border-color var(--transition-base),
+            box-shadow var(--transition-base),
+            transform var(--transition-base);
+          will-change: transform;
         }
 
         .contact-form-wrapper:hover {
-          box-shadow: var(--shadow-md);
-          border-color: var(--color-primary);
+          transform: translateY(-3px);
+          box-shadow: 0 8px 30px rgba(21, 128, 61, 0.08), 0 0 0 1px rgba(200, 168, 78, 0.1), var(--shadow-md);
+          border-color: var(--color-gold);
         }
 
         .contact-form-title {
