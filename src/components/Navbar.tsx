@@ -23,9 +23,12 @@ const Navbar: React.FC = () => {
   const showIsland = isHomePage && !isScrolled;
 
   const toggleMenu = useCallback(() => {
-    setIsMenuOpen((prev) => !prev);
-    document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
-  }, [isMenuOpen]);
+    setIsMenuOpen((prev) => {
+      const next = !prev;
+      document.body.style.overflow = next ? 'hidden' : '';
+      return next;
+    });
+  }, []);
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false);

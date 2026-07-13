@@ -37,7 +37,7 @@ const AppContent: React.FC = () => {
       <div className="app noise-overlay">
         <Navbar />
         <main className="main-content">
-          <Suspense fallback={<LoadingSpinner text="Memuat halaman..." />}>
+          <Suspense fallback={<LoadingSpinner fullPage text="Memuat halaman..." />}>
             <AnimatePresence mode="wait">
               <AnimatedPage key={location.pathname}>
                 <Routes location={location}>
@@ -72,6 +72,7 @@ const App: React.FC = () => {
           display: flex;
           flex-direction: column;
           min-height: 100vh;
+          min-height: 100dvh;
         }
         .main-content {
           flex: 1;

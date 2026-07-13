@@ -54,6 +54,7 @@ const HeroSection: React.FC = () => {
         .hero {
           position: relative;
           min-height: 100vh;
+          min-height: 100dvh;
           display: flex;
           align-items: center;
           overflow: hidden;
@@ -178,10 +179,20 @@ const HeroSection: React.FC = () => {
 
         @media (max-width: 639px) {
           .hero {
-            min-height: 90vh;
+            min-height: 100dvh;
+            padding: var(--space-20) 0 var(--space-10);
+            align-items: flex-start;
+            padding-top: calc(var(--space-24) + env(safe-area-inset-top, 0px));
+          }
+          .hero-content {
+            gap: var(--space-6);
           }
           .hero-title {
             font-size: var(--font-size-4xl);
+          }
+          .hero-description {
+            font-size: var(--font-size-base);
+            max-width: 100%;
           }
           .hero-actions {
             flex-direction: column;
@@ -189,10 +200,14 @@ const HeroSection: React.FC = () => {
           }
           .hero-actions .btn {
             width: 100%;
+            justify-content: center;
+          }
+          .hero-visual {
+            display: none;
           }
           .hero-image-frame {
-            width: 240px;
-            height: 240px;
+            width: 200px;
+            height: 200px;
           }
         }
       `}</style>

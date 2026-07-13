@@ -155,24 +155,15 @@ const Contact: React.FC = () => {
                 </div>
               </div>
 
-              <div className="contact-hours">
-                <h4 className="contact-hours-title">
-                  <FaClock /> Jam Operasional
-                </h4>
-                <div className="contact-hours-grid">
-                  <div>
-                    <span className="contact-day">Senin - Minggu</span>
-                    <span className="contact-time">08:00 - 17:00</span>
-                  </div>
-                  <div>
-                    <span className="contact-day"></span>
-                    <span className="contact-time"></span>
-                  </div>
-                  <div>
-                    <span className="contact-day"></span>
-                    <span className="contact-time"></span>
-                  </div>
-                </div>
+              <div className="contact-hours">                <h4 className="contact-hours-title">
+                      <FaClock /> Jam Operasional
+                    </h4>
+                    <div className="contact-hours-grid">
+                      <div>
+                        <span className="contact-day">Senin - Minggu</span>
+                        <span className="contact-time">08:00 - 17:00</span>
+                      </div>
+                    </div>
               </div>
             </div>
 
@@ -509,7 +500,21 @@ const Contact: React.FC = () => {
 
         @media (max-width: 639px) {
           .contact-form-wrapper {
-            padding: var(--space-6);
+            padding: var(--space-5);
+          }
+          .contact-grid {
+            gap: var(--space-6);
+          }
+          .contact-detail-item:hover {
+            transform: none;
+          }
+          .contact-form-wrapper:hover {
+            transform: none;
+            box-shadow: var(--shadow-sm);
+            border-color: var(--color-border);
+          }
+          .contact-map-container iframe {
+            height: 280px;
           }
         }
       `}</style>

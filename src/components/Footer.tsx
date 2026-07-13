@@ -331,13 +331,36 @@ const Footer: React.FC = () => {
 
         @media (max-width: 639px) {
           .footer-wave svg {
-            height: 40px;
+            height: 30px;
           }
           .footer-content {
             padding: var(--space-12) 0 var(--space-6);
           }
+          .footer-grid {
+            gap: var(--space-8);
+          }
+          .footer-brand {
+            max-width: 100%;
+          }
           .footer-bottom {
             flex-direction: column;
+            text-align: center;
+          }
+          .footer-heading::after {
+            left: 50%;
+            transform: translateX(-50%);
+          }
+          .footer-heading {
+            text-align: center;
+          }
+          .footer-contact-item {
+            justify-content: center;
+          }
+          .footer-links {
+            align-items: center;
+          }
+          .footer-social {
+            justify-content: center;
           }
         }
       `}</style>

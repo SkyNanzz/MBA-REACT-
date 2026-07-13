@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 /* ===================== PREMIUM PAGE TRANSITION ===================== */
 /* Per design-motion-principles (Jakub Krehel):
    - Enter: opacity + translateY + blur for a "materializing" effect
    - Spring animation with bounce:0 for professional polish
    - Exit: subtler than enter (smaller translate, same blur)
+   - Direction-aware: slides left/right when navigating forward/back
+   - Mobile-optimized: shorter distances, snappier springs
    - Accessibility: useReducedMotion() disables animation when user prefers reduced motion
 */
 
@@ -14,52 +17,84 @@ interface AnimatedPageProps {
   className?: string;
 }
 
-const pageVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-    filter: 'blur(6px)',
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      type: 'spring',
-      stiffness: 100,
-      damping: 25,
-      mass: 0.5,
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -10,
-    filter: 'blur(4px)',
-    transition: {
-      type: 'spring',
-      stiffness: 150,
-      damping: 22,
-      mass: 0.4,
-    },
-  },
+type NavDirection = 'forward' | 'back' | 'none';
+
+// Ordered routes for directional awareness
+const routeOrder: Record<string, number> = {
+  '/': 0,
+  '/tentang': 1,
+  '/produk': 2,
+  '/galeri': 3,
+  '/kontak': 4,
 };
 
-const staticVariants: Variants = {
-  initial: { opacity: 1 },
-  animate: { opacity: 1 },
-  exit: { opacity: 1 },
-};
+function getNavDirection(from: string, to: string): NavDirection {
+  const fromIdx = routeOrder[from] ?? -1;
+  const toIdx = routeOrder[to] ?? -1;
+  if (fromIdx === -1 || toIdx === -1) return 'none';
+  if (toIdx > fromIdx) return 'forward';
+  if (toIdx < fromIdx) return 'back';
+  return 'none';
+}
 
 const AnimatedPage: React.FC<AnimatedPageProps> = ({ children, className }) => {
   const prefersReducedMotion = useReducedMotion();
+  const location = useLocation();
+  const prevPath = useRef(location.pathname);
+  const [direction, setDirection] = useState<NavDirection>('none');
+
+  useEffect(() => {
+    const dir = getNavDirection(prevPath.current, location.pathname);
+    setDirection(dir);
+    prevPath.current = location.pathname;
+  }, [location.pathname]);
+
+  // Build variants based on direction
+  const slideOffset = 60;
+  const slideX = direction === 'forward' ? slideOffset : direction === 'back' ? -slideOffset : 0;
+
+  const pageVariants: Variants = {
+    initial: {
+      opacity: 0,
+      x: slideX,
+      filter: 'blur(4px)',
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      filter: 'blur(0px)',
+      transition: {
+        type: 'spring',
+        stiffness: 120,
+        damping: 23,
+        mass: 0.4,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: -slideX * 0.6,
+      filter: 'blur(3px)',
+      transition: {
+        type: 'spring',
+        stiffness: 150,
+        damping: 22,
+        mass: 0.35,
+      },
+    },
+  };
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
       className={className}
-      variants={prefersReducedMotion ? staticVariants : pageVariants}
+      variants={pageVariants}
       initial="initial"
       animate="animate"
       exit="exit"
+      style={{ willChange: 'transform, opacity, filter' }}
     >
       {children}
     </motion.div>

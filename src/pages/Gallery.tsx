@@ -305,7 +305,21 @@ const Gallery: React.FC = () => {
 
         @media (max-width: 639px) {
           .gallery-grid {
-            gap: var(--space-3);
+            gap: var(--space-2);
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .gallery-filters {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            gap: var(--space-2);
+            padding-bottom: var(--space-2);
+          }
+          .gallery-filter-btn {
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            white-space: nowrap;
           }
         }
       `}</style>

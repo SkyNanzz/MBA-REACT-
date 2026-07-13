@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion, type Variants } from 'framer-motion';
 
 interface ScrollRevealProps {
@@ -66,16 +66,23 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, amount: threshold });
   const prefersReducedMotion = useReducedMotion();
+  const [isMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 639px)').matches : false
+  );
 
+  // On mobile, reduce motion distance for snappier feel
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
   }
+
+  // Mobile: shorter distance, faster spring
+  const mobileDistance = isMobile ? Math.min(distance, 20) : distance;
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      variants={directionVariants(direction, distance)}
+      variants={directionVariants(direction, mobileDistance)}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       style={{ willChange: 'transform, opacity, filter' }}
@@ -108,10 +115,15 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, amount: threshold });
   const prefersReducedMotion = useReducedMotion();
+  const [isMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 639px)').matches : false
+  );
 
   /* Per Jakub Krehel: staggered entries with spring physics and blur for materializing feel.
-     Stagger delay creates a cascading reveal effect without needing manual delay props. */
+     Stagger delay creates a cascading reveal effect without needing manual delay props.
+     On mobile: faster stagger, shorter distance. */
   const childrenArray = React.Children.toArray(children);
+  const mobileStaggerDelay = isMobile ? Math.min(staggerDelay, 60) : staggerDelay;
 
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
@@ -120,8 +132,9 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
   return (
     <div ref={ref} className={className}>
       {childrenArray.map((child, index) => {
-        const yOffset = direction === 'up' || direction === 'blur' ? 30 : direction === 'down' ? -30 : 0;
-        const xOffset = direction === 'left' ? 30 : direction === 'right' ? -30 : 0;
+        const mobileOffset = isMobile ? 15 : 30;
+        const yOffset = direction === 'up' || direction === 'blur' ? mobileOffset : direction === 'down' ? -mobileOffset : 0;
+        const xOffset = direction === 'left' ? mobileOffset : direction === 'right' ? -mobileOffset : 0;
 
         return (
           <motion.div
@@ -130,8 +143,8 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
               opacity: 0,
               y: yOffset,
               x: xOffset,
-              scale: direction === 'scale' ? 0.9 : 1,
-              filter: 'blur(4px)',
+              scale: direction === 'scale' ? (isMobile ? 0.95 : 0.9) : 1,
+              filter: isMobile ? 'blur(2px)' : 'blur(4px)',
             }}
             animate={
               isInView
@@ -146,12 +159,12 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
             }
             transition={{
               type: 'spring',
-              stiffness: 100,
-              damping: 22,
-              mass: 0.5,
-              delay: index * (staggerDelay / 1000),
+              stiffness: isMobile ? 150 : 100,
+              damping: isMobile ? 25 : 22,
+              mass: isMobile ? 0.35 : 0.5,
+              delay: index * (mobileStaggerDelay / 1000),
             }}
-            style={{ willChange: 'transform, opacity, filter' }}
+            style={{ willChange: isMobile ? 'opacity, transform' : 'transform, opacity, filter' }}
           >
             {child}
           </motion.div>

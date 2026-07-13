@@ -464,6 +464,13 @@ const CTASection: React.FC = () => {
         }
         @media (max-width: 639px) {
           .cta-title { font-size: var(--font-size-2xl); }
+          .cta-actions { flex-direction: column; align-items: stretch; }
+          .cta-actions .btn { width: 100%; justify-content: center; }
+          .vm-card { padding: var(--space-6); }
+          .value-card { padding: var(--space-6) var(--space-4); }
+          .team-card { padding: var(--space-6) var(--space-4); }
+          .story-content .section-title { font-size: var(--font-size-2xl); }
+          .story-image-placeholder { min-height: 200px; }
         }
       `}</style>
     </section>

@@ -450,14 +450,37 @@ const Products: React.FC = () => {
 
         @media (max-width: 639px) {
           .product-filters {
-            flex-direction: column;
-            align-items: stretch;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            gap: var(--space-2);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-8);
           }
           .product-filter-btn {
+            flex-shrink: 0;
+            scroll-snap-align: start;
             text-align: center;
+            white-space: nowrap;
           }
           .product-detail-title {
             font-size: var(--font-size-2xl);
+          }
+          .product-detail-grid {
+            gap: var(--space-6);
+          }
+          .product-meta {
+            flex-direction: column;
+            gap: var(--space-2);
+          }
+          .product-spec-item {
+            flex-direction: column;
+            gap: var(--space-1);
+          }
+          .product-benefits {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

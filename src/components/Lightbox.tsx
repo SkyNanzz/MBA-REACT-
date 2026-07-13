@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { IoClose, IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
 interface LightboxProps {
@@ -8,9 +8,39 @@ interface LightboxProps {
   onNavigate: (index: number) => void;
 }
 
+const SWIPE_THRESHOLD = 50;
+
 const Lightbox: React.FC<LightboxProps> = ({ images, currentIndex, onClose, onNavigate }) => {
   const hasPrev = currentIndex > 0;
   const hasNext = currentIndex < images.length - 1;
+
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+      const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+
+      const absDx = Math.abs(deltaX);
+      const absDy = Math.abs(deltaY);
+
+      // Only trigger if horizontal swipe and mostly horizontal
+      if (absDx > absDy && absDx > SWIPE_THRESHOLD) {
+        if (deltaX > 0 && hasPrev) {
+          onNavigate(currentIndex - 1);
+        } else if (deltaX < 0 && hasNext) {
+          onNavigate(currentIndex + 1);
+        }
+      }
+    },
+    [currentIndex, hasPrev, hasNext, onNavigate]
+  );
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -49,6 +79,8 @@ const Lightbox: React.FC<LightboxProps> = ({ images, currentIndex, onClose, onNa
     <div
       className="lightbox-overlay active"
       onClick={handleOverlayClick}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       role="dialog"
       aria-modal="true"
       aria-label="Lightbox gambar"
