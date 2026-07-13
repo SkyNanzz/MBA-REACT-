@@ -1,6 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -8,7 +7,6 @@ import WhatsAppFloat from './components/WhatsAppFloat';
 import LoadingSpinner from './components/LoadingSpinner';
 import { ToastProvider, ToastContainer } from './contexts/ToastContext';
 import { useTheme } from './hooks/useTheme';
-import AnimatedPage from './components/AnimatedPage';
 
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
@@ -38,18 +36,16 @@ const AppContent: React.FC = () => {
         <Navbar />
         <main className="main-content">
           <Suspense fallback={<LoadingSpinner fullPage text="Memuat halaman..." />}>
-            <AnimatePresence mode="wait">
-              <AnimatedPage key={location.pathname}>
-                <Routes location={location}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/tentang" element={<About />} />
-                  <Route path="/produk" element={<Products />} />
-                  <Route path="/galeri" element={<Gallery />} />
-                  <Route path="/kontak" element={<Contact />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </AnimatedPage>
-            </AnimatePresence>
+            <div className="page-transition-wrapper" key={location.pathname}>
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/tentang" element={<About />} />
+                <Route path="/produk" element={<Products />} />
+                <Route path="/galeri" element={<Gallery />} />
+                <Route path="/kontak" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
           </Suspense>
         </main>
         <Footer />
@@ -77,6 +73,27 @@ const App: React.FC = () => {
         }
         .main-content {
           flex: 1;
+        }
+        /* Ganti framer-motion page transition yang bermasalah di HP.
+           Pakai CSS animation sederhana — tidak ada opacity:0 flash karena
+           browser menerapkan CSS @keyframes SEBELUM first paint. */
+        .page-transition-wrapper {
+          animation: page-fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes page-fade-in {
+          from {
+            transform: translateY(8px);
+          }
+          to {
+            transform: translateY(0);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .page-transition-wrapper {
+            animation: none;
+          }
         }
       `}</style>
     </Router>
